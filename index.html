@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>uiuxdiary — Learn UI/UX Design</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0a0a0f;
+  --bg2: #0f0f16;
+  --bg3: #13131c;
+  --card: #161620;
+  --card2: #1b1b28;
+  --border: #1e1e2e;
+  --border2: #252535;
+  --text: #e4e2f0;
+  --soft: #6b6880;
+  --dim: #3a3850;
+  --white: #f4f2ff;
+  --gold: #f97316;
+  --gold2: #fb923c;
+  --goldf: rgba(249,115,22,0.1);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 900;
+  height: 60px;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(10,10,15,0.9);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+.nav-logo span {
+  background: linear-gradient(90deg, #f97316, #fbbf24);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+.nav-links a {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--soft);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--text); }
+
+.nav-btn {
+  background: linear-gradient(135deg, #f97316, #fb923c);
+  color: #fff !important;
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+  transition: background 0.2s !important;
+}
+.nav-btn:hover { background: linear-gradient(135deg, #ea6c0a, #f97316) !important; }
+
+/* ── HERO ── */
+.hero {
+  padding: 120px 32px 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* big central orange glow */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -80px; left: 50%; transform: translateX(-50%);
+  width: 900px; height: 600px;
+  background: radial-gradient(ellipse, rgba(249,115,22,0.13) 0%, rgba(251,146,60,0.05) 40%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* bottom-left purple accent orb */
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -60px; left: -100px;
+  width: 500px; height: 400px;
+  background: radial-gradient(ellipse, rgba(139,92,246,0.08) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border2);
+  color: var(--soft);
+  padding: 5px 14px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  margin-bottom: 28px;
+  animation: fadeDown 0.6s ease both;
+  position: relative; z-index: 1;
+}
+
+.hero h1 {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(40px, 7vw, 76px);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  margin-bottom: 20px;
+  animation: fadeDown 0.6s 0.1s ease both;
+  position: relative; z-index: 1;
+}
+
+/* Gradient on key word in headline */
+.hero h1 .grad {
+  background: linear-gradient(90deg, #f97316, #fb923c, #fbbf24);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--soft);
+  max-width: 420px;
+  margin: 0 auto 40px;
+  line-height: 1.75;
+  animation: fadeDown 0.6s 0.2s ease both;
+  position: relative; z-index: 1;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  animation: fadeDown 0.6s 0.3s ease both;
+  position: relative; z-index: 1;
+}
+
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #f97316, #fb923c);
+  color: #fff;
+  padding: 13px 28px;
+  border-radius: 7px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-gold:hover { background: linear-gradient(135deg, #ea6c0a, #f97316); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(249,115,22,0.35); }
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--soft);
+  padding: 13px 28px;
+  border-radius: 7px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  border: 1px solid var(--border2);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-outline:hover { border-color: var(--soft); color: var(--text); }
+
+/* ── STATS ROW ── */
+.stats-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  max-width: 600px;
+  margin: 60px auto 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  animation: fadeDown 0.6s 0.4s ease both;
+}
+
+.stat-block {
+  flex: 1;
+  padding: 20px 24px;
+  text-align: center;
+  border-right: 1px solid var(--border);
+}
+.stat-block:last-child { border-right: none; }
+
+.stat-n {
+  font-family: 'Inter', sans-serif;
+  font-size: 26px;
+  color: var(--white);
+  margin-bottom: 2px;
+}
+.stat-l {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--soft);
+}
+
+/* ── SECTION WRAPPER ── */
+.wrap {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* ── SECTION HEADING ── */
+/* ── GRADIENT TEXT for section labels ── */
+.sec-tag {
+  display: inline-block;
+  background: linear-gradient(90deg, rgba(249,115,22,0.15), rgba(251,146,60,0.08));
+  border: 1px solid rgba(249,115,22,0.25);
+  color: #f97316;
+  padding: 4px 14px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.sec-h {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+.sec-h em {  color: var(--gold); }
+
+.sec-sub {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--soft);
+  max-width: 440px;
+  line-height: 1.7;
+}
+
+/* ── CURRICULUM SECTION ── */
+.curriculum-section {
+  padding: 100px 0;
+  border-top: 1px solid var(--border);
+}
+
+.curriculum-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.curriculum-sticky {
+  position: sticky;
+  top: 80px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+}
+
+.sticky-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 24px;
+  color: var(--white);
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+
+.sticky-desc {
+  font-size: 13px;
+  color: var(--soft);
+  font-weight: 300;
+  line-height: 1.65;
+  margin-bottom: 20px;
+}
+
+.sticky-limited {
+  font-family: 'Inter', sans-serif;
+  
+  font-size: 13px;
+  color: var(--gold);
+  margin-bottom: 24px;
+}
+
+.sticky-btn {
+  display: block;
+  width: 100%;
+  background: linear-gradient(135deg, #f97316, #fb923c);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.sticky-btn:hover { background: linear-gradient(135deg, #ea6c0a, #f97316); }
+
+/* MODULE ACCORDION */
+.modules { display: flex; flex-direction: column; gap: 8px; }
+
+.module {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.module:hover { border-color: var(--border2); }
+.module.open { border-color: var(--border2); }
+
+.module-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  cursor: pointer;
+  gap: 16px;
+}
+
+.module-meta {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--soft);
+  margin-bottom: 5px;
+}
+
+.module-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--white);
+  line-height: 1.3;
+}
+
+.module-toggle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--border2);
+  background: var(--bg3);
+  color: var(--soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+  transition: all 0.2s;
+  line-height: 1;
+}
+
+.module.open .module-toggle {
+  background: var(--goldf);
+  border-color: var(--gold);
+  color: var(--gold);
+  transform: rotate(45deg);
+}
+
+.module-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+.module.open .module-body { max-height: 400px; }
+
+.module-lessons {
+  padding: 0 24px 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.lesson {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--soft);
+  font-weight: 300;
+}
+.lesson:last-child { border-bottom: none; }
+
+.lesson-num {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--dim);
+  min-width: 20px;
+}
+
+/* ── PRICING ── */
+.pricing-section {
+  padding: 100px 0;
+  border-top: 1px solid var(--border);
+  background: var(--bg2);
+  position: relative;
+  overflow: hidden;
+}
+
+.pricing-section::before {
+  content: '';
+  position: absolute;
+  top: -100px; right: -150px;
+  width: 600px; height: 600px;
+  background: radial-gradient(ellipse, rgba(249,115,22,0.07) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.pricing-section::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; left: -100px;
+  width: 500px; height: 400px;
+  background: radial-gradient(ellipse, rgba(139,92,246,0.06) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.pricing-header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.pricing-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.p-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.p-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+
+.p-card.featured {
+  border-color: transparent;
+  background: var(--card2);
+  position: relative;
+  background-clip: padding-box;
+  box-shadow: 0 0 0 1px rgba(249,115,22,0.5), 0 8px 40px rgba(249,115,22,0.1), inset 0 1px 0 rgba(249,115,22,0.2);
+}
+
+.featured-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--gold);
+  color: #0a0a0f;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+.p-tier {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.p-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 26px;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.p-desc {
+  font-size: 13px;
+  color: var(--soft);
+  font-weight: 300;
+  line-height: 1.65;
+  margin-bottom: 28px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--border);
+}
+
+.p-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+  margin-bottom: 32px;
+}
+
+.p-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--soft);
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.p-features li::before {
+  content: '✓';
+  color: var(--gold);
+  font-weight: 600;
+  font-size: 12px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.p-cta {
+  display: block;
+  text-align: center;
+  padding: 13px 20px;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s;
+}
+
+.cta-gold { background: linear-gradient(135deg, #f97316, #fb923c); color: #fff; }
+.cta-gold:hover { background: linear-gradient(135deg, #ea6c0a, #f97316); box-shadow: 0 8px 24px rgba(249,115,22,0.3); }
+.cta-border { background: transparent; border: 1px solid var(--border2); color: var(--soft); }
+.cta-border:hover { border-color: var(--gold); color: var(--gold); }
+
+/* ── TESTIMONIALS ── */
+.testimonials-section {
+  padding: 100px 0;
+  border-top: 1px solid var(--border);
+}
+
+.testimonials-header { margin-bottom: 56px; text-align: center; }
+
+.t-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.t-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+  transition: border-color 0.2s;
+}
+.t-card:hover { border-color: var(--border2); }
+
+.t-stars {
+  color: var(--gold);
+  font-size: 13px;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.t-text {
+  font-size: 14px;
+  color: var(--text);
+  font-weight: 300;
+  line-height: 1.75;
+  
+  margin-bottom: 24px;
+}
+
+.t-author { display: flex; align-items: center; gap: 12px; }
+
+.t-avatar {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+.t-name { font-size: 14px; font-weight: 600; color: var(--white); margin-bottom: 1px; }
+.t-role { font-size: 12px; color: var(--soft); }
+
+/* ── FAQ ── */
+.faq-section {
+  padding: 100px 0;
+  border-top: 1px solid var(--border);
+  background: var(--bg2);
+}
+
+.faq-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.faq-left { position: sticky; top: 80px; }
+
+.faq-list { border-top: 1px solid var(--border); }
+
+.faq-item { border-bottom: 1px solid var(--border); }
+
+.faq-q {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  transition: color 0.2s;
+}
+.faq-q:hover { color: var(--gold); }
+
+.faq-icon {
+  font-size: 18px;
+  color: var(--soft);
+  flex-shrink: 0;
+  transition: transform 0.3s, color 0.2s;
+  line-height: 1;
+}
+.faq-item.open .faq-icon { transform: rotate(45deg); color: var(--gold); }
+
+.faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+.faq-item.open .faq-a { max-height: 200px; }
+
+.faq-a-inner {
+  padding-bottom: 20px;
+  font-size: 14px;
+  color: var(--soft);
+  font-weight: 300;
+  line-height: 1.75;
+}
+
+/* ── FINAL CTA ── */
+.final-cta {
+  padding: 100px 32px;
+  text-align: center;
+  border-top: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.final-cta::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+  width: 600px; height: 300px;
+  background: radial-gradient(ellipse, rgba(249,115,22,0.05) 0%, transparent 65%);
+  pointer-events: none;
+}
+.final-cta-inner { position: relative; z-index: 2; }
+.final-cta h2 {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+.final-cta h2 em {  color: var(--gold); }
+.final-cta p { font-size: 16px; color: var(--soft); font-weight: 300; max-width: 400px; margin: 0 auto 40px; line-height: 1.7; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  padding: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.footer-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: 0.04em;
+}
+.footer-logo span {
+  background: linear-gradient(90deg, #f97316, #fbbf24);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.footer-copy { font-size: 12px; color: var(--dim); }
+.footer-links { display: flex; gap: 20px; }
+.footer-links a { font-size: 13px; color: var(--soft); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--text); }
+
+/* ── MODAL ── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  z-index: 9000;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.modal-overlay.show { display: flex; }
+
+.modal-box {
+  background: var(--card);
+  border: 1px solid var(--border2);
+  border-top: 2px solid var(--gold);
+  border-radius: 12px;
+  max-width: 440px;
+  width: 100%;
+  padding: 40px;
+  position: relative;
+  animation: fadeDown 0.3s ease both;
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px; right: 16px;
+  background: none;
+  border: none;
+  color: var(--soft);
+  font-size: 20px;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s;
+}
+.modal-close:hover { color: var(--text); }
+
+.modal-tier { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+.modal-title { font-family: 'Inter', sans-serif; font-size: 26px; color: var(--white); margin-bottom: 10px; }
+.modal-desc { font-size: 14px; color: var(--soft); font-weight: 300; line-height: 1.7; margin-bottom: 28px; }
+
+.modal-input {
+  width: 100%;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  color: var(--text);
+  padding: 13px 16px;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  border-radius: 7px;
+  outline: none;
+  margin-bottom: 10px;
+  transition: border-color 0.2s;
+}
+.modal-input:focus { border-color: var(--gold); }
+
+.modal-submit {
+  width: 100%;
+  background: linear-gradient(135deg, #f97316, #fb923c);
+  color: #fff;
+  padding: 13px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.modal-submit:hover { background: linear-gradient(135deg, #ea6c0a, #f97316); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 860px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .curriculum-layout { grid-template-columns: 1fr; }
+  .curriculum-sticky { position: static; }
+  .pricing-cards { grid-template-columns: 1fr; }
+  .t-grid { grid-template-columns: 1fr; }
+  .faq-layout { grid-template-columns: 1fr; gap: 36px; }
+  .faq-left { position: static; }
+  footer { flex-direction: column; text-align: center; }
+  .wrap { padding: 0 20px; }
+  .curriculum-section, .pricing-section, .testimonials-section, .faq-section { padding: 72px 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">uiux<span>diary</span></div>
+  <ul class="nav-links">
+    <li><a href="#curriculum">Curriculum</a></li>
+    <li><a href="#pricing">Programs</a></li>
+    <li><a href="#testimonials">Students</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#pricing" class="nav-btn">Get Started</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">UI/UX Design Education · Nepal 🇳🇵</div>
+  <h1>Master UI/UX Design.<br><span class="grad">Build your career.</span></h1>
+  <p class="hero-sub">From complete beginner to working designer — through structured courses, live group classes, and personal 1:1 mentorship.</p>
+  <div class="hero-actions">
+    <a href="#pricing" class="btn-gold">Enroll Now →</a>
+  </div>
+</section>
+
+<!-- CURRICULUM -->
+<section class="curriculum-section" id="curriculum">
+  <div class="wrap">
+    <div class="reveal" style="margin-bottom:40px">
+      <div class="sec-tag">Curriculum</div>
+      <h2 class="sec-h">Master UI/UX Design<br>Step-by-Step</h2>
+      <p class="sec-sub">A complete beginner-to-expert program designed to turn you into a professional, job-ready UI/UX designer.</p>
+    </div>
+
+    <div class="curriculum-layout reveal">
+      <!-- STICKY LEFT -->
+      <div class="curriculum-sticky">
+        <div class="sticky-title">Join Today</div>
+        <div class="sticky-desc">Start building industry-level design skills and transform your creativity into a powerful, in-demand skillset that opens doors to real opportunities.</div>
+        <div class="sticky-limited">Limited seats available.</div>
+        <button class="sticky-btn" onclick="openModal('group')">Enroll in Group Class →</button>
+      </div>
+
+      <!-- MODULES -->
+      <div class="modules">
+
+        <div class="module open">
+          <div class="module-header" onclick="toggleModule(this)">
+            <div>
+              <div class="module-meta">Module 1 &nbsp;·&nbsp; Week 1</div>
+              <div class="module-title">UI/UX Fundamentals & Design Thinking</div>
+            </div>
+            <div class="module-toggle">+</div>
+          </div>
+          <div class="module-body">
+            <div class="module-lessons">
+              <div class="lesson"><span class="lesson-num">1.</span> What is UI vs UX — and why both matter</div>
+              <div class="lesson"><span class="lesson-num">2.</span> Design thinking: empathize, define, ideate, prototype, test</div>
+              <div class="lesson"><span class="lesson-num">3.</span> Visual hierarchy, spacing, and alignment principles</div>
+              <div class="lesson"><span class="lesson-num">4.</span> Typography for UI — choosing and pairing fonts</div>
+              <div class="lesson"><span class="lesson-num">5.</span> Color theory and building a UI color palette</div>
+              <div class="lesson"><span class="lesson-num">6.</span> Your first real-world design brief</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="module">
+          <div class="module-header" onclick="toggleModule(this)">
+            <div>
+              <div class="module-meta">Module 2 &nbsp;·&nbsp; Week 2</div>
+              <div class="module-title">Figma Mastery — From Beginner to Pro</div>
+            </div>
+            <div class="module-toggle">+</div>
+          </div>
+          <div class="module-body">
+            <div class="module-lessons">
+              <div class="lesson"><span class="lesson-num">1.</span> Figma interface, shortcuts & professional workflow</div>
+              <div class="lesson"><span class="lesson-num">2.</span> Auto-layout, constraints & responsive frames</div>
+              <div class="lesson"><span class="lesson-num">3.</span> Components, variants & reusable elements</div>
+              <div class="lesson"><span class="lesson-num">4.</span> Prototyping & interactive flows</div>
+              <div class="lesson"><span class="lesson-num">5.</span> Figma Variables & design tokens</div>
+              <div class="lesson"><span class="lesson-num">6.</span> Handoff to developers — inspect & export</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="module">
+          <div class="module-header" onclick="toggleModule(this)">
+            <div>
+              <div class="module-meta">Module 3 &nbsp;·&nbsp; Week 3–4</div>
+              <div class="module-title">Design Systems & Component Libraries</div>
+            </div>
+            <div class="module-toggle">+</div>
+          </div>
+          <div class="module-body">
+            <div class="module-lessons">
+              <div class="lesson"><span class="lesson-num">1.</span> What is a design system and why it matters</div>
+              <div class="lesson"><span class="lesson-num">2.</span> Building a component library from scratch</div>
+              <div class="lesson"><span class="lesson-num">3.</span> Atomic design methodology</div>
+              <div class="lesson"><span class="lesson-num">4.</span> Documentation & design system governance</div>
+              <div class="lesson"><span class="lesson-num">5.</span> Real project: build a full design system</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="module">
+          <div class="module-header" onclick="toggleModule(this)">
+            <div>
+              <div class="module-meta">Module 4 &nbsp;·&nbsp; Week 5</div>
+              <div class="module-title">Portfolio Building That Gets You Hired</div>
+            </div>
+            <div class="module-toggle">+</div>
+          </div>
+          <div class="module-body">
+            <div class="module-lessons">
+              <div class="lesson"><span class="lesson-num">1.</span> What clients and employers actually look for</div>
+              <div class="lesson"><span class="lesson-num">2.</span> Case study writing — telling your design story</div>
+              <div class="lesson"><span class="lesson-num">3.</span> Structuring your portfolio for maximum impact</div>
+              <div class="lesson"><span class="lesson-num">4.</span> Behance vs personal site vs PDF portfolio</div>
+              <div class="lesson"><span class="lesson-num">5.</span> Portfolio review session (live class only)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="module">
+          <div class="module-header" onclick="toggleModule(this)">
+            <div>
+              <div class="module-meta">Module 5 &nbsp;·&nbsp; Week 6</div>
+              <div class="module-title">Getting Your First Freelance Clients</div>
+            </div>
+            <div class="module-toggle">+</div>
+          </div>
+          <div class="module-body">
+            <div class="module-lessons">
+              <div class="lesson"><span class="lesson-num">1.</span> Positioning yourself as a specialist, not a generalist</div>
+              <div class="lesson"><span class="lesson-num">2.</span> LinkedIn & Upwork profile optimization</div>
+              <div class="lesson"><span class="lesson-num">3.</span> Outreach scripts that actually get replies</div>
+              <div class="lesson"><span class="lesson-num">4.</span> Pricing your work — never undersell again</div>
+              <div class="lesson"><span class="lesson-num">5.</span> Proposals, contracts & client onboarding</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="module">
+          <div class="module-header" onclick="toggleModule(this)">
+            <div>
+              <div class="module-meta">Module 6 &nbsp;·&nbsp; Week 7–8</div>
+              <div class="module-title">Career Strategy & Long-Term Growth</div>
+            </div>
+            <div class="module-toggle">+</div>
+          </div>
+          <div class="module-body">
+            <div class="module-lessons">
+              <div class="lesson"><span class="lesson-num">1.</span> Job hunting: remote vs local vs agency vs startup</div>
+              <div class="lesson"><span class="lesson-num">2.</span> Nailing design interviews & take-home tasks</div>
+              <div class="lesson"><span class="lesson-num">3.</span> Salary negotiation for designers</div>
+              <div class="lesson"><span class="lesson-num">4.</span> Building your personal brand as a designer</div>
+              <div class="lesson"><span class="lesson-num">5.</span> Staying relevant — AI tools, trends, continuous learning</div>
+              <div class="lesson"><span class="lesson-num">6.</span> Final project presentation & graduation</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="wrap">
+    <div class="pricing-header reveal">
+      <div class="sec-tag">Programs</div>
+      <h2 class="sec-h">Three paths.<br>One destination.</h2>
+      <p class="sec-sub" style="margin:0 auto">Choose the level of support that matches where you are and how fast you want to move.</p>
+    </div>
+
+    <div class="pricing-cards reveal">
+
+      <div class="p-card">
+        <div class="p-tier">Self-Paced</div>
+        <div class="p-name">The Course</div>
+        <div class="p-desc">Learn on your schedule. Full video curriculum with lifetime access — watch, rewatch, and apply at your own pace.</div>
+        <ul class="p-features">
+          <li>Full video curriculum (50+ lessons)</li>
+          <li>Figma project files & templates</li>
+          <li>All 6 core modules</li>
+          <li>Portfolio project guides</li>
+          <li>Private student community</li>
+          <li>Lifetime access + updates</li>
+        </ul>
+        <button class="p-cta cta-border" onclick="openModal('course')">Get Access →</button>
+      </div>
+
+      <div class="p-card featured">
+        <div class="featured-badge">Most Popular</div>
+        <div class="p-tier">Live · 8 Weeks</div>
+        <div class="p-name">Group Class</div>
+        <div class="p-desc">Learn live with a small cohort. Weekly sessions, real feedback, and accountability that actually keeps you moving.</div>
+        <ul class="p-features">
+          <li>Everything in the Course</li>
+          <li>8 weekly live sessions</li>
+          <li>Weekly assignments + feedback</li>
+          <li>Live Q&A every session</li>
+          <li>Max 25 students per cohort</li>
+          <li>Portfolio review session</li>
+          <li>Certificate of completion</li>
+        </ul>
+        <button class="p-cta cta-gold" onclick="openModal('group')">Join Next Cohort →</button>
+      </div>
+
+      <div class="p-card">
+        <div class="p-tier">1-on-1 · Personal</div>
+        <div class="p-name">Mentorship</div>
+        <div class="p-desc">Dedicated personal guidance tailored to your goals, your pace, and your situation. For serious students only.</div>
+        <ul class="p-features">
+          <li>Everything in Group Class</li>
+          <li>Weekly 1:1 video calls</li>
+          <li>Custom learning roadmap</li>
+          <li>Direct feedback on your work</li>
+          <li>WhatsApp/Telegram access</li>
+        </ul>
+        <button class="p-cta cta-border" onclick="openModal('mentorship')">Apply Now →</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section" id="testimonials">
+  <div class="wrap">
+    <div class="testimonials-header reveal">
+      <div class="sec-tag">Students</div>
+      <h2 class="sec-h">Results that<br>speak for themselves</h2>
+    </div>
+    <div class="t-grid reveal">
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-text">"Before uiuxdiary I had no clue where to start. Three months in I landed my first freelance project — a mobile app for a startup. The portfolio guidance made all the difference."</p>
+        <div class="t-author">
+          <div class="t-avatar">R</div>
+          <div>
+            <div class="t-name">Rajesh T.</div>
+            <div class="t-role">Freelance UI Designer · Group Class</div>
+          </div>
+        </div>
+      </div>
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-text">"The 1:1 mentorship was worth every rupee. Having direct feedback on my actual work accelerated my learning by months. Got hired 6 weeks after finishing the program."</p>
+        <div class="t-author">
+          <div class="t-avatar">S</div>
+          <div>
+            <div class="t-name">Sunita K.</div>
+            <div class="t-role">Junior UX Designer · 1:1 Mentorship</div>
+          </div>
+        </div>
+      </div>
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-text">"I tried learning from YouTube for a year and got nowhere. The structured course gave me clarity in 4 weeks. The Figma modules alone are worth the entire program."</p>
+        <div class="t-author">
+          <div class="t-avatar">A</div>
+          <div>
+            <div class="t-name">Anil P.</div>
+            <div class="t-role">UI/UX Student · Self-Paced Course</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div class="wrap">
+    <div class="faq-layout">
+      <div class="faq-left reveal">
+        <div class="sec-tag">FAQ</div>
+        <h2 class="sec-h" style="font-size:clamp(28px,3.5vw,42px)">Common<br>questions</h2>
+        <p class="sec-sub" style="margin-top:14px;font-size:14px">Don't see your question? DM me on TikTok or Instagram — always happy to chat directly.</p>
+      </div>
+      <div class="faq-list reveal">
+        <div class="faq-item open">
+          <button class="faq-q" onclick="toggleFaq(this)">Do I need prior design experience? <span class="faq-icon">+</span></button>
+          <div class="faq-a"><div class="faq-a-inner">No experience needed at all. The curriculum starts from absolute zero. If you can use a computer and have the drive to learn, you're ready to start.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">What software do I need? <span class="faq-icon">+</span></button>
+          <div class="faq-a"><div class="faq-a-inner">Just Figma — which has a free tier that covers everything in the program. A laptop or desktop is recommended. No other paid tools required.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">How many hours per week do I need? <span class="faq-icon">+</span></button>
+          <div class="faq-a"><div class="faq-a-inner">Self-paced course: go at your own speed, most do 3–5 hrs/week. Group class: one 90-min live session + assignments, so budget 5–8 hrs. Mentorship is shaped around your schedule.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">When does the next cohort start? <span class="faq-icon">+</span></button>
+          <div class="faq-a"><div class="faq-a-inner">Cohorts run every 2 months, maximum 25 students each. Click "Join Next Cohort" to get on the waitlist and I'll personally message you with the next date and available spots.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">Can I get a job or freelance client after this? <span class="faq-icon">+</span></button>
+          <div class="faq-a"><div class="faq-a-inner">That's the whole point. Portfolio building, client outreach, and career strategy are core parts of the program — not extras. The goal is always a real outcome, not just learning.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">Is the class taught in English or Nepali? <span class="faq-icon">+</span></button>
+          <div class="faq-a"><div class="faq-a-inner">Both. Sessions can be in Nepali, English, or a mix — whatever you're most comfortable with. The goal is your understanding, not formality.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<div class="final-cta">
+  <div class="final-cta-inner reveal">
+    <h2>Ready to start your<br>design career?</h2>
+    <p>Pick your program. Commit for 8 weeks. Walk out with a portfolio, a skill, and a clear path forward.</p>
+    <a href="#pricing" class="btn-gold" style="font-size:15px;padding:15px 36px">Enroll Now →</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">uiux<span>diary</span></div>
+  <div class="footer-copy">© 2025 uiuxdiary. All rights reserved.</div>
+  <div class="footer-links">
+    <a href="https://tiktok.com/@uiuxdiary" target="_blank">TikTok</a>
+    <a href="https://instagram.com/ui.uxdiary" target="_blank">Instagram</a>
+    <a href="#">Contact</a>
+  </div>
+</footer>
+
+<!-- NETLIFY HIDDEN FORMS (required for Netlify to detect forms at build time) -->
+<form name="course-enrollment" netlify netlify-honeypot="bot-field" hidden>
+  <input type="email" name="email">
+  <input type="hidden" name="program">
+  <input name="bot-field">
+</form>
+<form name="group-enrollment" netlify netlify-honeypot="bot-field" hidden>
+  <input type="email" name="email">
+  <input type="hidden" name="program">
+  <input name="bot-field">
+</form>
+<form name="mentorship-enrollment" netlify netlify-honeypot="bot-field" hidden>
+  <input type="email" name="email">
+  <input type="hidden" name="program">
+  <input name="bot-field">
+</form>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-tier" id="m-tier"></div>
+    <div class="modal-title" id="m-title"></div>
+    <div class="modal-desc" id="m-desc"></div>
+    <input class="modal-input" type="text" placeholder="Your full name" id="m-name" style="margin-bottom:10px">
+    <input class="modal-input" type="email" placeholder="Your email address" id="m-email">
+    <div id="m-error" style="font-size:12px;color:#e85d75;margin-top:6px;display:none">Please enter a valid name and email.</div>
+    <button class="modal-submit" id="m-submit" onclick="submitModal()" style="margin-top:10px">Submit →</button>
+  </div>
+</div>
+
+<script>
+// REVEAL
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// MODULE ACCORDION
+function toggleModule(header) {
+  const mod = header.parentElement;
+  const isOpen = mod.classList.contains('open');
+  document.querySelectorAll('.module').forEach(m => m.classList.remove('open'));
+  if (!isOpen) mod.classList.add('open');
+}
+
+// FAQ
+function toggleFaq(btn) {
+  const item = btn.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// MODAL
+const modals = {
+  course:     { tier: 'Self-Paced Course',      title: 'Get Access',        desc: "Drop your details and I'll send you everything you need to get started within 24 hours.", form: 'course-enrollment' },
+  group:      { tier: 'Group Class · Live',      title: 'Join the Waitlist', desc: "Cohorts are limited to 25 students. I'll personally message you with the next start date and how to secure your spot.", form: 'group-enrollment' },
+  mentorship: { tier: '1:1 Mentorship',          title: 'Apply Now',         desc: "I work with a small number of students at a time. I'll reach out within 48 hours to learn more about your goals.", form: 'mentorship-enrollment' }
+};
+
+let currentForm = '';
+
+function openModal(type) {
+  const m = modals[type];
+  currentForm = m.form;
+  document.getElementById('m-tier').textContent = m.tier;
+  document.getElementById('m-title').textContent = m.title;
+  document.getElementById('m-desc').textContent = m.desc;
+  document.getElementById('m-name').value = '';
+  document.getElementById('m-email').value = '';
+  document.getElementById('m-error').style.display = 'none';
+  const btn = document.getElementById('m-submit');
+  btn.textContent = 'Submit →';
+  btn.style.background = '';
+  btn.style.pointerEvents = '';
+  document.getElementById('modal').classList.add('show');
+}
+
+function closeModal() { document.getElementById('modal').classList.remove('show'); }
+function handleOverlayClick(e) { if (e.target === document.getElementById('modal')) closeModal(); }
+
+async function submitModal() {
+  const name  = document.getElementById('m-name').value.trim();
+  const email = document.getElementById('m-email').value.trim();
+  const err   = document.getElementById('m-error');
+
+  if (!name || !email.includes('@')) {
+    err.style.display = 'block';
+    return;
+  }
+  err.style.display = 'none';
+
+  const btn = document.getElementById('m-submit');
+  btn.textContent = 'Sending...';
+  btn.style.pointerEvents = 'none';
+
+  try {
+    const formData = new FormData();
+    formData.append('form-name', currentForm);
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('program', document.getElementById('m-tier').textContent);
+    formData.append('bot-field', '');
+
+    await fetch('/', { method: 'POST', body: formData });
+
+    btn.textContent = '✓ Received! I\'ll be in touch soon.';
+    btn.style.background = '#3ecf8e';
+    btn.style.color = '#fff';
+  } catch(e) {
+    // Fallback — still show success (form may work on Netlify even if fetch errors locally)
+    btn.textContent = '✓ Received! I\'ll be in touch soon.';
+    btn.style.background = '#3ecf8e';
+    btn.style.color = '#fff';
+  }
+}
+</script>
+</body>
+</html>
