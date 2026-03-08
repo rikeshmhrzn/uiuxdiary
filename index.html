@@ -606,27 +606,26 @@ nav {
 
 /* SLIDER */
 .t-slider-wrap {
-  position: relative;
   overflow: hidden;
+  width: 100%;
 }
 
 .t-slider {
   display: flex;
+  gap: 16px;
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  gap: 20px;
+  will-change: transform;
 }
 
 .t-card {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 36px;
-  min-width: calc(33.333% - 14px);
-  flex-shrink: 0;
+  padding: 32px;
+  flex: 0 0 calc(33.333% - 11px);
   transition: border-color 0.2s;
   box-sizing: border-box;
 }
-
 .t-card:hover { border-color: var(--border2); }
 
 .t-stars {
@@ -652,7 +651,7 @@ nav {
   align-items: center;
   justify-content: center;
   gap: 16px;
-  margin-top: 40px;
+  margin-top: 36px;
 }
 
 .t-btn {
@@ -665,15 +664,11 @@ nav {
   cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   transition: all 0.2s;
-  flex-shrink: 0;
 }
-.t-btn:hover { border-color: var(--gold); color: var(--gold); background: var(--card2); }
+.t-btn:hover { border-color: var(--gold); color: var(--gold); }
+.t-btn:disabled { opacity: 0.3; cursor: default; }
 
-.t-dots {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
+.t-dots { display: flex; gap: 8px; align-items: center; }
 
 .t-dot {
   width: 6px; height: 6px;
@@ -681,11 +676,15 @@ nav {
   background: var(--border2);
   cursor: pointer;
   transition: all 0.3s;
+  border: none;
 }
-.t-dot.active {
-  background: var(--gold);
-  width: 20px;
-  border-radius: 3px;
+.t-dot.active { background: var(--gold); width: 20px; border-radius: 3px; }
+
+@media (max-width: 900px) {
+  .t-card { flex: 0 0 calc(50% - 8px); }
+}
+@media (max-width: 600px) {
+  .t-card { flex: 0 0 100%; }
 }
 
 .t-avatar {
@@ -1333,57 +1332,65 @@ footer {
 
 <script>
 // TESTIMONIAL SLIDER
-const slider = document.getElementById('tSlider');
-const dotsWrap = document.getElementById('tDots');
-const cards = slider.querySelectorAll('.t-card');
-const visibleCount = () => window.innerWidth < 700 ? 1 : window.innerWidth < 1000 ? 2 : 3;
-let current = 0;
-let total = 0;
+(function() {
+  const slider   = document.getElementById('tSlider');
+  const dotsWrap = document.getElementById('tDots');
+  const cards    = Array.from(slider.querySelectorAll('.t-card'));
+  let current    = 0;
+  let auto;
 
-function buildSlider() {
-  const vis = visibleCount();
-  total = Math.ceil(cards.length / vis);
-  dotsWrap.innerHTML = '';
-  for (let i = 0; i < total; i++) {
-    const d = document.createElement('div');
-    d.className = 't-dot' + (i === current ? ' active' : '');
-    d.onclick = () => goTo(i);
-    dotsWrap.appendChild(d);
+  function getVisible() {
+    if (window.innerWidth < 600) return 1;
+    if (window.innerWidth < 900) return 2;
+    return 3;
   }
-  // Set card widths
-  const gap = 20;
-  const vis2 = visibleCount();
-  cards.forEach(c => {
-    c.style.minWidth = `calc(${100 / vis2}% - ${gap * (vis2 - 1) / vis2}px)`;
-  });
-  updateSlider();
-}
 
-function updateSlider() {
-  const vis = visibleCount();
-  const cardW = cards[0].offsetWidth + 20;
-  slider.style.transform = `translateX(-${current * vis * cardW}px)`;
-  dotsWrap.querySelectorAll('.t-dot').forEach((d, i) => {
-    d.classList.toggle('active', i === current);
-  });
-}
+  function totalSlides() {
+    return Math.max(1, cards.length - getVisible() + 1);
+  }
 
-function goTo(idx) {
-  current = Math.max(0, Math.min(idx, total - 1));
-  updateSlider();
-}
+  function buildDots() {
+    dotsWrap.innerHTML = '';
+    for (let i = 0; i < totalSlides(); i++) {
+      const d = document.createElement('button');
+      d.className = 't-dot' + (i === current ? ' active' : '');
+      d.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(d);
+    }
+  }
 
-function slideTestimonial(dir) {
-  goTo(current + dir);
-}
+  function goTo(idx) {
+    const max = totalSlides() - 1;
+    current = Math.max(0, Math.min(idx, max));
+    const cardWidth = cards[0].getBoundingClientRect().width + 16;
+    slider.style.transform = `translateX(-${current * cardWidth}px)`;
+    buildDots();
+  }
 
-// Auto-slide every 4 seconds
-let autoSlide = setInterval(() => goTo((current + 1) % total), 4000);
-slider.addEventListener('mouseenter', () => clearInterval(autoSlide));
-slider.addEventListener('mouseleave', () => { autoSlide = setInterval(() => goTo((current + 1) % total), 4000); });
+  function startAuto() {
+    clearInterval(auto);
+    auto = setInterval(() => {
+      const next = current >= totalSlides() - 1 ? 0 : current + 1;
+      goTo(next);
+    }, 4000);
+  }
 
-window.addEventListener('resize', buildSlider);
-buildSlider();
+  // Pause on hover
+  slider.parentElement.addEventListener('mouseenter', () => clearInterval(auto));
+  slider.parentElement.addEventListener('mouseleave', startAuto);
+
+  // Arrow buttons
+  window.slideTestimonial = function(dir) {
+    goTo(current + dir);
+    startAuto();
+  };
+
+  window.addEventListener('resize', () => { goTo(0); });
+
+  // Init
+  buildDots();
+  startAuto();
+})();
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
 }, { threshold: 0.1 });
