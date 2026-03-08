@@ -604,19 +604,29 @@ nav {
 
 .testimonials-header { margin-bottom: 56px; text-align: center; }
 
-.t-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+/* SLIDER */
+.t-slider-wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+.t-slider {
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  gap: 20px;
 }
 
 .t-card {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 32px;
+  padding: 36px;
+  min-width: calc(33.333% - 14px);
+  flex-shrink: 0;
   transition: border-color 0.2s;
+  box-sizing: border-box;
 }
+
 .t-card:hover { border-color: var(--border2); }
 
 .t-stars {
@@ -631,11 +641,52 @@ nav {
   color: var(--text);
   font-weight: 300;
   line-height: 1.75;
-  
   margin-bottom: 24px;
 }
 
 .t-author { display: flex; align-items: center; gap: 12px; }
+
+/* SLIDER CONTROLS */
+.t-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.t-btn {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--border2);
+  background: var(--card);
+  color: var(--soft);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.t-btn:hover { border-color: var(--gold); color: var(--gold); background: var(--card2); }
+
+.t-dots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.t-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--border2);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.t-dot.active {
+  background: var(--gold);
+  width: 20px;
+  border-radius: 3px;
+}
 
 .t-avatar {
   width: 38px; height: 38px;
@@ -1100,41 +1151,92 @@ footer {
       <div class="sec-tag">Students</div>
       <h2 class="sec-h">Results that<br>speak for themselves</h2>
     </div>
-    <div class="t-grid reveal">
-      <div class="t-card">
-        <div class="t-stars">★★★★★</div>
-        <p class="t-text">"Before uiuxdiary I had no clue where to start. Three months in I landed my first freelance project — a mobile app for a startup. The portfolio guidance made all the difference."</p>
-        <div class="t-author">
-          <div class="t-avatar">R</div>
-          <div>
-            <div class="t-name">Rajesh T.</div>
-            <div class="t-role">Freelance UI Designer · Group Class</div>
+
+    <div class="t-slider-wrap reveal">
+      <div class="t-slider" id="tSlider">
+
+        <div class="t-card">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-text">"Before uiuxdiary I had no clue where to start. Three months in I landed my first freelance project — a mobile app for a startup. The portfolio guidance made all the difference."</p>
+          <div class="t-author">
+            <div class="t-avatar">R</div>
+            <div>
+              <div class="t-name">Rajesh T.</div>
+              <div class="t-role">Freelance UI Designer · Group Class</div>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="t-card">
-        <div class="t-stars">★★★★★</div>
-        <p class="t-text">"The 1:1 mentorship was worth every rupee. Having direct feedback on my actual work accelerated my learning by months. Got hired 6 weeks after finishing the program."</p>
-        <div class="t-author">
-          <div class="t-avatar">S</div>
-          <div>
-            <div class="t-name">Sunita K.</div>
-            <div class="t-role">Junior UX Designer · 1:1 Mentorship</div>
+
+        <div class="t-card">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-text">"The 1:1 mentorship was worth every rupee. Having direct feedback on my actual work accelerated my learning by months. Got hired 6 weeks after finishing the program."</p>
+          <div class="t-author">
+            <div class="t-avatar">S</div>
+            <div>
+              <div class="t-name">Sunita K.</div>
+              <div class="t-role">Junior UX Designer · 1:1 Mentorship</div>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="t-card">
-        <div class="t-stars">★★★★★</div>
-        <p class="t-text">"I tried learning from YouTube for a year and got nowhere. The structured course gave me clarity in 4 weeks. The Figma modules alone are worth the entire program."</p>
-        <div class="t-author">
-          <div class="t-avatar">A</div>
-          <div>
-            <div class="t-name">Anil P.</div>
-            <div class="t-role">UI/UX Student · Self-Paced Course</div>
+
+        <div class="t-card">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-text">"I tried learning from YouTube for a year and got nowhere. The structured course gave me clarity in 4 weeks. The Figma modules alone are worth the entire program."</p>
+          <div class="t-author">
+            <div class="t-avatar">A</div>
+            <div>
+              <div class="t-name">Anil P.</div>
+              <div class="t-role">UI/UX Student · Self-Paced Course</div>
+            </div>
           </div>
         </div>
+
+        <div class="t-card">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-text">"I was skeptical at first but the live group sessions changed everything. Being able to ask questions in real time and get instant feedback made learning 10x faster."</p>
+          <div class="t-author">
+            <div class="t-avatar">P</div>
+            <div>
+              <div class="t-name">Priya M.</div>
+              <div class="t-role">Product Designer · Group Class</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="t-card">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-text">"The portfolio module alone was worth the entire course. I went from having zero case studies to landing interviews at two startups within a month of graduating."</p>
+          <div class="t-author">
+            <div class="t-avatar">B</div>
+            <div>
+              <div class="t-name">Bibek S.</div>
+              <div class="t-role">UI Designer · Self-Paced Course</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="t-card">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-text">"What sets uiuxdiary apart is the practical approach. No fluff — just real skills, real projects, and real feedback. I got my first client before even finishing the program."</p>
+          <div class="t-author">
+            <div class="t-avatar">K</div>
+            <div>
+              <div class="t-name">Kritika L.</div>
+              <div class="t-role">Freelance Designer · 1:1 Mentorship</div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
+
+    <!-- CONTROLS -->
+    <div class="t-controls reveal">
+      <button class="t-btn" id="tPrev" onclick="slideTestimonial(-1)">←</button>
+      <div class="t-dots" id="tDots"></div>
+      <button class="t-btn" id="tNext" onclick="slideTestimonial(1)">→</button>
+    </div>
+
   </div>
 </section>
 
@@ -1230,7 +1332,58 @@ footer {
 </div>
 
 <script>
-// REVEAL
+// TESTIMONIAL SLIDER
+const slider = document.getElementById('tSlider');
+const dotsWrap = document.getElementById('tDots');
+const cards = slider.querySelectorAll('.t-card');
+const visibleCount = () => window.innerWidth < 700 ? 1 : window.innerWidth < 1000 ? 2 : 3;
+let current = 0;
+let total = 0;
+
+function buildSlider() {
+  const vis = visibleCount();
+  total = Math.ceil(cards.length / vis);
+  dotsWrap.innerHTML = '';
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('div');
+    d.className = 't-dot' + (i === current ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsWrap.appendChild(d);
+  }
+  // Set card widths
+  const gap = 20;
+  const vis2 = visibleCount();
+  cards.forEach(c => {
+    c.style.minWidth = `calc(${100 / vis2}% - ${gap * (vis2 - 1) / vis2}px)`;
+  });
+  updateSlider();
+}
+
+function updateSlider() {
+  const vis = visibleCount();
+  const cardW = cards[0].offsetWidth + 20;
+  slider.style.transform = `translateX(-${current * vis * cardW}px)`;
+  dotsWrap.querySelectorAll('.t-dot').forEach((d, i) => {
+    d.classList.toggle('active', i === current);
+  });
+}
+
+function goTo(idx) {
+  current = Math.max(0, Math.min(idx, total - 1));
+  updateSlider();
+}
+
+function slideTestimonial(dir) {
+  goTo(current + dir);
+}
+
+// Auto-slide every 4 seconds
+let autoSlide = setInterval(() => goTo((current + 1) % total), 4000);
+slider.addEventListener('mouseenter', () => clearInterval(autoSlide));
+slider.addEventListener('mouseleave', () => { autoSlide = setInterval(() => goTo((current + 1) % total), 4000); });
+
+window.addEventListener('resize', buildSlider);
+buildSlider();
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
 }, { threshold: 0.1 });
