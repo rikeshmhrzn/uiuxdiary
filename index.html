@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>uiuxdiary — Learn UI/UX Design & Get Hired</title>
+<title>uiuxdiary — Learn UI/UX Design</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -1277,6 +1277,7 @@ function handleOverlayClick(e) { if (e.target === document.getElementById('modal
 async function submitModal() {
   const name  = document.getElementById('m-name').value.trim();
   const email = document.getElementById('m-email').value.trim();
+  const program = document.getElementById('m-tier').textContent;
   const err   = document.getElementById('m-error');
 
   if (!name || !email.includes('@')) {
@@ -1290,23 +1291,27 @@ async function submitModal() {
   btn.style.pointerEvents = 'none';
 
   try {
-    const formData = new FormData();
-    formData.append('form-name', currentForm);
-    formData.append('name', name);
-    formData.append('email', email);
-    formData.append('program', document.getElementById('m-tier').textContent);
-    formData.append('bot-field', '');
+    const res = await fetch('https://formspree.io/f/mdawkyzd', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ name, email, program })
+    });
 
-    await fetch('/', { method: 'POST', body: formData });
-
-    btn.textContent = '✓ Received! I\'ll be in touch soon.';
-    btn.style.background = '#3ecf8e';
-    btn.style.color = '#fff';
+    if (res.ok) {
+      btn.textContent = '✓ Received! I\'ll be in touch soon.';
+      btn.style.background = '#3ecf8e';
+      btn.style.color = '#fff';
+    } else {
+      btn.textContent = 'Something went wrong. Try again.';
+      btn.style.background = '#e85d75';
+      btn.style.color = '#fff';
+      btn.style.pointerEvents = 'auto';
+    }
   } catch(e) {
-    // Fallback — still show success (form may work on Netlify even if fetch errors locally)
-    btn.textContent = '✓ Received! I\'ll be in touch soon.';
-    btn.style.background = '#3ecf8e';
+    btn.textContent = 'Something went wrong. Try again.';
+    btn.style.background = '#e85d75';
     btn.style.color = '#fff';
+    btn.style.pointerEvents = 'auto';
   }
 }
 </script>
