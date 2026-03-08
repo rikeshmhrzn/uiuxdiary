@@ -1221,9 +1221,10 @@ footer {
     <div class="modal-tier" id="m-tier"></div>
     <div class="modal-title" id="m-title"></div>
     <div class="modal-desc" id="m-desc"></div>
-    <input class="modal-input" type="text" placeholder="Your full name" id="m-name" style="margin-bottom:10px">
-    <input class="modal-input" type="email" placeholder="Your email address" id="m-email">
-    <div id="m-error" style="font-size:12px;color:#e85d75;margin-top:6px;display:none">Please enter a valid name and email.</div>
+    <input class="modal-input" type="text" placeholder="Your full name *" id="m-name" required>
+    <input class="modal-input" type="email" placeholder="Your email address *" id="m-email" required>
+    <input class="modal-input" type="tel" placeholder="Your WhatsApp number *" id="m-whatsapp" required>
+    <div id="m-error" style="font-size:12px;color:#e85d75;margin-top:6px;display:none">Please fill in all fields correctly.</div>
     <button class="modal-submit" id="m-submit" onclick="submitModal()" style="margin-top:10px">Submit →</button>
   </div>
 </div>
@@ -1268,6 +1269,7 @@ function openModal(type) {
   document.getElementById('m-desc').textContent = m.desc;
   document.getElementById('m-name').value = '';
   document.getElementById('m-email').value = '';
+  document.getElementById('m-whatsapp').value = '';
   document.getElementById('m-error').style.display = 'none';
   const btn = document.getElementById('m-submit');
   btn.textContent = 'Submit →';
@@ -1280,12 +1282,13 @@ function closeModal() { document.getElementById('modal').classList.remove('show'
 function handleOverlayClick(e) { if (e.target === document.getElementById('modal')) closeModal(); }
 
 async function submitModal() {
-  const name  = document.getElementById('m-name').value.trim();
-  const email = document.getElementById('m-email').value.trim();
-  const program = document.getElementById('m-tier').textContent;
-  const err   = document.getElementById('m-error');
+  const name      = document.getElementById('m-name').value.trim();
+  const email     = document.getElementById('m-email').value.trim();
+  const whatsapp  = document.getElementById('m-whatsapp').value.trim();
+  const program   = document.getElementById('m-tier').textContent;
+  const err       = document.getElementById('m-error');
 
-  if (!name || !email.includes('@')) {
+  if (!name || !email.includes('@') || !whatsapp) {
     err.style.display = 'block';
     return;
   }
@@ -1299,7 +1302,7 @@ async function submitModal() {
     const res = await fetch('https://formspree.io/f/mdawkyzd', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ name, email, program })
+      body: JSON.stringify({ name, email, whatsapp, program })
     });
 
     if (res.ok) {
