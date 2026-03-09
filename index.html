@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>uiuxdiary — Learn UI/UX Design</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Jost:wght@700;800&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -52,18 +52,21 @@ nav {
 }
 
 .nav-logo {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--white);
-  letter-spacing: 0.04em;
+  font-family: 'Jost', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
   line-height: 1;
+  display: flex;
+  align-items: center;
 }
+.nav-logo .logo-uiux { color: #ffffff; }
 .nav-logo span {
-  background: linear-gradient(90deg, #f97316, #fbbf24);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+  background: none;
 }
 
 .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
@@ -800,17 +803,19 @@ footer {
   flex-wrap: wrap;
 }
 .footer-logo {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Jost', sans-serif;
   font-size: 20px;
-  font-weight: 700;
-  color: var(--white);
-  letter-spacing: 0.04em;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
+  display: flex;
+  align-items: center;
 }
 .footer-logo span {
-  background: linear-gradient(90deg, #f97316, #fbbf24);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+  background: none;
 }
 .footer-copy { font-size: 12px; color: var(--dim); }
 .footer-links { display: flex; gap: 20px; }
@@ -918,7 +923,7 @@ footer {
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">uiux<span>diary</span></div>
+  <div class="nav-logo"><span class="logo-uiux">uiux</span><span>diary</span></div>
   <ul class="nav-links">
     <li><a href="#curriculum">Curriculum</a></li>
     <li><a href="#pricing">Programs</a></li>
@@ -1342,7 +1347,7 @@ footer {
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">uiux<span>diary</span></div>
+  <div class="footer-logo"><span class="logo-uiux">uiux</span><span>diary</span></div>
   <div class="footer-copy">© 2025 uiuxdiary. All rights reserved.</div>
   <div class="footer-links">
     <a href="https://tiktok.com/@uiuxdiary" target="_blank">TikTok</a>
