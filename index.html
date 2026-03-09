@@ -103,26 +103,55 @@ nav {
   overflow: hidden;
 }
 
-/* big central orange glow */
+/* big central orange glow - animated */
 .hero::before {
   content: '';
   position: absolute;
   top: -80px; left: 50%; transform: translateX(-50%);
   width: 900px; height: 600px;
-  background: radial-gradient(ellipse, rgba(249,115,22,0.13) 0%, rgba(251,146,60,0.05) 40%, transparent 70%);
+  background: radial-gradient(ellipse, rgba(249,115,22,0.18) 0%, rgba(251,146,60,0.07) 40%, transparent 70%);
   pointer-events: none;
   z-index: 0;
+  animation: orbFloat 8s ease-in-out infinite;
 }
 
-/* bottom-left purple accent orb */
+/* bottom-left purple accent orb - animated */
 .hero::after {
   content: '';
   position: absolute;
   bottom: -60px; left: -100px;
   width: 500px; height: 400px;
-  background: radial-gradient(ellipse, rgba(139,92,246,0.08) 0%, transparent 65%);
+  background: radial-gradient(ellipse, rgba(139,92,246,0.12) 0%, transparent 65%);
   pointer-events: none;
   z-index: 0;
+  animation: orbFloat2 10s ease-in-out infinite;
+}
+
+/* extra right-side orb */
+.hero-orb {
+  position: absolute;
+  top: 20%; right: -80px;
+  width: 400px; height: 400px;
+  background: radial-gradient(ellipse, rgba(251,191,36,0.08) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+  animation: orbFloat3 12s ease-in-out infinite;
+}
+
+@keyframes orbFloat {
+  0%, 100% { transform: translateX(-50%) translateY(0px) scale(1); opacity: 1; }
+  33%       { transform: translateX(-48%) translateY(-30px) scale(1.05); opacity: 0.85; }
+  66%       { transform: translateX(-52%) translateY(20px) scale(0.97); opacity: 0.95; }
+}
+
+@keyframes orbFloat2 {
+  0%, 100% { transform: translateX(0) translateY(0) scale(1); }
+  50%       { transform: translateX(40px) translateY(-30px) scale(1.1); }
+}
+
+@keyframes orbFloat3 {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.7; }
+  50%       { transform: translateY(-40px) scale(1.08); opacity: 1; }
 }
 
 .hero-badge {
@@ -935,6 +964,7 @@ footer {
 
 <!-- HERO -->
 <section class="hero">
+  <div class="hero-orb"></div>
   <div class="hero-badge">UI/UX Design Education · Nepal 🇳🇵</div>
   <h1>Master UI/UX Design.<br><span class="grad">Build your career.</span></h1>
   <p class="hero-sub">From complete beginner to working designer — through structured courses,<br>live group classes, and personal 1:1 mentorship.</p>
