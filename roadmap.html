@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Free UI/UX Roadmap — uiuxdiary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #080808;
+    --card: #111111;
+    --border: #1e1e1e;
+    --border2: #2a2a2a;
+    --text: #e8e8e8;
+    --soft: #6e6e6e;
+    --orange: #f97316;
+    --orange2: #fbbf24;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+    overflow-x: hidden;
+  }
+  .orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .orb-left {
+    width: 320px; height: 320px;
+    background: radial-gradient(circle, rgba(249,115,22,0.12) 0%, transparent 70%);
+    top: -80px; left: -120px;
+    animation: float 7s ease-in-out infinite;
+  }
+  .orb-right {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(249,115,22,0.08) 0%, transparent 70%);
+    bottom: -100px; right: -150px;
+    animation: float 9s ease-in-out infinite reverse;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+  .top-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--orange), var(--orange2));
+    z-index: 100;
+  }
+  nav {
+    position: fixed;
+    top: 3px; left: 0; right: 0;
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    z-index: 99;
+    background: rgba(8,8,8,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    font-family: 'Jost', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: -0.5px;
+  }
+  .logo span { color: #fff; }
+  .logo em {
+    font-style: normal;
+    background: linear-gradient(135deg, var(--orange), var(--orange2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 520px;
+    margin-top: 88px;
+    padding-bottom: 48px;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(249,115,22,0.1);
+    border: 1px solid rgba(249,115,22,0.3);
+    color: var(--orange);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 22px;
+    animation: fadeUp 0.5s ease both;
+  }
+  .badge-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--orange);
+    animation: pulse 2s ease infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+  h1 {
+    font-family: 'Jost', sans-serif;
+    font-weight: 800;
+    font-size: clamp(38px, 9vw, 54px);
+    line-height: 1.05;
+    letter-spacing: -1.5px;
+    margin-bottom: 16px;
+    animation: fadeUp 0.5s 0.1s ease both;
+  }
+  h1 .orange {
+    background: linear-gradient(135deg, var(--orange), var(--orange2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .subtitle {
+    font-size: 16px;
+    color: var(--soft);
+    line-height: 1.6;
+    margin-bottom: 28px;
+    animation: fadeUp 0.5s 0.15s ease both;
+  }
+  .stats {
+    display: flex;
+    margin-bottom: 28px;
+    animation: fadeUp 0.5s 0.2s ease both;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .stat {
+    flex: 1;
+    text-align: center;
+    padding: 14px 8px;
+    background: var(--card);
+  }
+  .stat + .stat { border-left: 1px solid var(--border); }
+  .stat-val {
+    font-family: 'Jost', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    color: var(--orange);
+  }
+  .stat-label {
+    font-size: 11px;
+    color: var(--soft);
+    margin-top: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .phases {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 28px;
+    animation: fadeUp 0.5s 0.25s ease both;
+  }
+  .phase-pill {
+    background: var(--card);
+    border: 1px solid var(--border2);
+    color: var(--soft);
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 100px;
+  }
+  .phase-pill.active {
+    background: rgba(249,115,22,0.1);
+    border-color: rgba(249,115,22,0.35);
+    color: var(--orange);
+  }
+  .form-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 30px;
+    animation: fadeUp 0.5s 0.3s ease both;
+  }
+  .form-card h2 {
+    font-family: 'Jost', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+  .form-card > p {
+    font-size: 13px;
+    color: var(--soft);
+    margin-bottom: 22px;
+  }
+  .field { margin-bottom: 14px; }
+  .field label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--soft);
+    letter-spacing: 0.8px;
+    margin-bottom: 7px;
+    text-transform: uppercase;
+  }
+  .field input {
+    width: 100%;
+    background: #0d0d0d;
+    border: 1px solid var(--border2);
+    border-radius: 10px;
+    padding: 13px 16px;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .field input:focus { border-color: var(--orange); }
+  .field input::placeholder { color: #2e2e2e; }
+  .btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, var(--orange), var(--orange2));
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-family: 'Jost', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 6px;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .btn:hover { opacity: 0.9; transform: translateY(-1px); }
+  .btn:active { transform: translateY(0); }
+  .btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+  .privacy {
+    text-align: center;
+    font-size: 12px;
+    color: #2e2e2e;
+    margin-top: 12px;
+  }
+  /* Success */
+  .success-card {
+    display: none;
+    background: var(--card);
+    border: 1px solid rgba(249,115,22,0.25);
+    border-radius: 16px;
+    padding: 40px 30px;
+    text-align: center;
+    animation: fadeUp 0.4s ease both;
+  }
+  .success-icon {
+    width: 68px; height: 68px;
+    background: rgba(249,115,22,0.1);
+    border: 1px solid rgba(249,115,22,0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 30px;
+  }
+  .success-card h2 {
+    font-family: 'Jost', sans-serif;
+    font-weight: 800;
+    font-size: 26px;
+    margin-bottom: 10px;
+  }
+  .success-card p {
+    font-size: 14px;
+    color: var(--soft);
+    margin-bottom: 28px;
+    line-height: 1.6;
+  }
+  .download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 36px;
+    background: linear-gradient(135deg, var(--orange), var(--orange2));
+    border-radius: 10px;
+    color: #fff;
+    font-family: 'Jost', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .download-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+  .social-nudge {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--soft);
+    line-height: 1.6;
+  }
+  .social-nudge strong { color: var(--orange); }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    font-size: 12px;
+    color: #252525;
+    padding: 0 0 24px;
+  }
+</style>
+</head>
+<body>
+
+<div class="top-bar"></div>
+<div class="orb orb-left"></div>
+<div class="orb orb-right"></div>
+
+<nav>
+  <div class="logo"><span>uiux</span><em>diary</em></div>
+</nav>
+
+<div class="container">
+
+  <div class="badge"><span class="badge-dot"></span> Free Download</div>
+
+  <h1>The Complete<br/><span class="orange">UI/UX Design</span><br/>Roadmap</h1>
+
+  <p class="subtitle">From complete beginner to job-ready designer — step by step, no fluff. 100% free.</p>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-val">4</div><div class="stat-label">Phases</div></div>
+    <div class="stat"><div class="stat-val">24</div><div class="stat-label">Weeks</div></div>
+    <div class="stat"><div class="stat-val">20+</div><div class="stat-label">Students</div></div>
+    <div class="stat"><div class="stat-val">6</div><div class="stat-label">Pages</div></div>
+  </div>
+
+  <div class="phases">
+    <span class="phase-pill active">Phase 1: Foundation</span>
+    <span class="phase-pill">Phase 2: Core Skills</span>
+    <span class="phase-pill">Phase 3: Portfolio</span>
+    <span class="phase-pill">Phase 4: Get Hired</span>
+  </div>
+
+  <div class="form-card" id="formCard">
+    <h2>Get your free roadmap 👇</h2>
+    <p>Enter your details and download instantly. No spam, ever.</p>
+    <form id="leadForm">
+      <div class="field">
+        <label>Your Name</label>
+        <input type="text" name="name" placeholder="e.g. Rikesh" required/>
+      </div>
+      <div class="field">
+        <label>Email Address</label>
+        <input type="email" name="email" placeholder="you@gmail.com" required/>
+      </div>
+      <input type="hidden" name="source" value="roadmap-pdf-download"/>
+      <button type="submit" class="btn" id="submitBtn">Download Free Roadmap →</button>
+    </form>
+    <p class="privacy">🔒 No spam. Unsubscribe anytime.</p>
+  </div>
+
+  <div class="success-card" id="successCard">
+    <div class="success-icon">📥</div>
+    <h2>You're all set!</h2>
+    <p>Your free UI/UX roadmap is ready. Start with Phase 1 today — even 30 minutes a day makes a huge difference.</p>
+    <a href="https://drive.google.com/file/d/1d9CbwcG9N4d6Y1mcoYrd-BRP2Svr2oZh/view?usp=sharing" target="_blank" class="download-btn">⬇️ Download PDF Now</a>
+    <div class="social-nudge">
+      Follow <strong>@uiuxdiary</strong> on TikTok & Instagram for daily UI/UX tips and tutorials 🙌
+    </div>
+  </div>
+
+</div>
+
+<footer>uiuxdiary · Made with ❤️ in Nepal 🇳🇵</footer>
+
+<script>
+  const form = document.getElementById('leadForm');
+  const formCard = document.getElementById('formCard');
+  const successCard = document.getElementById('successCard');
+  const submitBtn = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Just a second...';
+
+    const data = new FormData(form);
+    try {
+      await fetch('https://formspree.io/f/mdawkyzd', {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+    } catch (err) {}
+
+    formCard.style.display = 'none';
+    successCard.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+</body>
+</html>
