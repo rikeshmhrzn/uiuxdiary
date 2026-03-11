@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>UI/UX Beginner Guide — uiuxdiary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #080808;
+    --card: #111111;
+    --border: #1e1e1e;
+    --border2: #2a2a2a;
+    --text: #e8e8e8;
+    --soft: #6e6e6e;
+    --orange: #f97316;
+    --orange2: #fbbf24;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+    overflow-x: hidden;
+  }
+  .orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .orb-left {
+    width: 320px; height: 320px;
+    background: radial-gradient(circle, rgba(249,115,22,0.12) 0%, transparent 70%);
+    top: -80px; left: -120px;
+    animation: float 7s ease-in-out infinite;
+  }
+  .orb-right {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(249,115,22,0.08) 0%, transparent 70%);
+    bottom: -100px; right: -150px;
+    animation: float 9s ease-in-out infinite reverse;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+  .top-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--orange), var(--orange2));
+    z-index: 100;
+  }
+  nav {
+    position: fixed;
+    top: 3px; left: 0; right: 0;
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 99;
+    background: rgba(8,8,8,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    font-family: 'Jost', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: -0.5px;
+  }
+  .logo span { color: #fff; }
+  .logo em {
+    font-style: normal;
+    background: linear-gradient(135deg, var(--orange), var(--orange2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .price-tag {
+    font-family: 'Jost', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--orange);
+  }
+  .container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 520px;
+    margin-top: 88px;
+    padding-bottom: 48px;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(249,115,22,0.1);
+    border: 1px solid rgba(249,115,22,0.3);
+    color: var(--orange);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 22px;
+    animation: fadeUp 0.5s ease both;
+  }
+  .badge-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--orange);
+    animation: pulse 2s ease infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+  h1 {
+    font-family: 'Jost', sans-serif;
+    font-weight: 800;
+    font-size: clamp(36px, 9vw, 52px);
+    line-height: 1.05;
+    letter-spacing: -1.5px;
+    margin-bottom: 16px;
+    animation: fadeUp 0.5s 0.1s ease both;
+  }
+  h1 .orange {
+    background: linear-gradient(135deg, var(--orange), var(--orange2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .subtitle {
+    font-size: 16px;
+    color: var(--soft);
+    line-height: 1.6;
+    margin-bottom: 28px;
+    animation: fadeUp 0.5s 0.15s ease both;
+  }
+
+  /* Price card */
+  .price-card {
+    background: rgba(249,115,22,0.06);
+    border: 1px solid rgba(249,115,22,0.25);
+    border-radius: 14px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    animation: fadeUp 0.5s 0.2s ease both;
+  }
+  .price-card-left { }
+  .price-card-label {
+    font-size: 12px;
+    color: var(--soft);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .price-card-amount {
+    font-family: 'Jost', sans-serif;
+    font-weight: 800;
+    font-size: 36px;
+    color: var(--orange);
+    line-height: 1;
+  }
+  .price-card-amount span {
+    font-size: 16px;
+    color: var(--soft);
+    font-weight: 400;
+  }
+  .price-card-right {
+    text-align: right;
+  }
+  .price-card-pages {
+    font-size: 13px;
+    color: var(--soft);
+    margin-bottom: 4px;
+  }
+  .price-card-format {
+    font-size: 13px;
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  /* What's inside */
+  .whats-inside {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 24px;
+    animation: fadeUp 0.5s 0.25s ease both;
+  }
+  .whats-inside h3 {
+    font-family: 'Jost', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--orange);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .inside-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .inside-item:last-child { margin-bottom: 0; }
+  .inside-dot {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: rgba(249,115,22,0.15);
+    border: 1px solid rgba(249,115,22,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+    font-size: 10px;
+    color: var(--orange);
+    font-weight: 700;
+  }
+  .inside-text {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .inside-text span {
+    color: var(--soft);
+    font-size: 13px;
+    display: block;
+    margin-top: 2px;
+  }
+
+  /* Form card */
+  .form-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 30px;
+    animation: fadeUp 0.5s 0.3s ease both;
+  }
+  .form-card h2 {
+    font-family: 'Jost', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+  .form-card > p {
+    font-size: 13px;
+    color: var(--soft);
+    margin-bottom: 22px;
+    line-height: 1.5;
+  }
+  .field { margin-bottom: 14px; }
+  .field label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--soft);
+    letter-spacing: 0.8px;
+    margin-bottom: 7px;
+    text-transform: uppercase;
+  }
+  .field input {
+    width: 100%;
+    background: #0d0d0d;
+    border: 1px solid var(--border2);
+    border-radius: 10px;
+    padding: 13px 16px;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .field input:focus { border-color: var(--orange); }
+  .field input::placeholder { color: #2e2e2e; }
+  .btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, var(--orange), var(--orange2));
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-family: 'Jost', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 6px;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .btn:hover { opacity: 0.9; transform: translateY(-1px); }
+  .btn:active { transform: translateY(0); }
+  .btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+  .privacy {
+    text-align: center;
+    font-size: 12px;
+    color: #2e2e2e;
+    margin-top: 12px;
+  }
+
+  /* Success */
+  .success-card {
+    display: none;
+    background: var(--card);
+    border: 1px solid rgba(249,115,22,0.25);
+    border-radius: 16px;
+    padding: 40px 30px;
+    text-align: center;
+    animation: fadeUp 0.4s ease both;
+  }
+  .success-icon {
+    width: 68px; height: 68px;
+    background: rgba(249,115,22,0.1);
+    border: 1px solid rgba(249,115,22,0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 30px;
+  }
+  .success-card h2 {
+    font-family: 'Jost', sans-serif;
+    font-weight: 800;
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  .success-card p {
+    font-size: 14px;
+    color: var(--soft);
+    line-height: 1.7;
+  }
+  .success-card p strong {
+    color: var(--orange);
+  }
+  .social-nudge {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--soft);
+    line-height: 1.6;
+  }
+  .social-nudge strong { color: var(--orange); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    font-size: 12px;
+    color: #252525;
+    padding: 0 0 24px;
+  }
+</style>
+</head>
+<body>
+
+<div class="top-bar"></div>
+<div class="orb orb-left"></div>
+<div class="orb orb-right"></div>
+
+<nav>
+  <div class="logo"><span>uiux</span><em>diary</em></div>
+  <div class="price-tag">Rs. 249</div>
+</nav>
+
+<div class="container">
+
+  <div class="badge"><span class="badge-dot"></span> Digital Guide</div>
+
+  <h1>How to Get Started<br/>in <span class="orange">UI/UX Design</span></h1>
+
+  <p class="subtitle">A beginner's guide to everything you need to know before starting your UI/UX design journey — clear, simple, no fluff.</p>
+
+  <!-- Price card -->
+  <div class="price-card">
+    <div class="price-card-left">
+      <div class="price-card-label">One time price</div>
+      <div class="price-card-amount">Rs. 249 <span>only</span></div>
+    </div>
+    <div class="price-card-right">
+      <div class="price-card-pages">15 pages</div>
+      <div class="price-card-format">📖 PDF Guide</div>
+    </div>
+  </div>
+
+  <!-- What's inside -->
+  <div class="whats-inside">
+    <h3>What's inside</h3>
+    <div class="inside-item">
+      <div class="inside-dot">1</div>
+      <div class="inside-text">What is UI/UX Design?
+        <span>A clear breakdown of UI and UX — what they mean and how they work together</span>
+      </div>
+    </div>
+    <div class="inside-item">
+      <div class="inside-dot">2</div>
+      <div class="inside-text">Why UI/UX Design is Important?
+        <span>Why good design matters for businesses and why it's a high demand skill</span>
+      </div>
+    </div>
+    <div class="inside-item">
+      <div class="inside-dot">3</div>
+      <div class="inside-text">Understanding the UX Design Process
+        <span>Research, wireframing, prototyping — the full process explained simply</span>
+      </div>
+    </div>
+    <div class="inside-item">
+      <div class="inside-dot">4</div>
+      <div class="inside-text">Core UI Principles
+        <span>Typography, color, spacing, hierarchy — the fundamentals every designer needs</span>
+      </div>
+    </div>
+    <div class="inside-item">
+      <div class="inside-dot">5</div>
+      <div class="inside-text">Introduction to UI Design
+        <span>How to start designing interfaces and what to focus on first</span>
+      </div>
+    </div>
+    <div class="inside-item">
+      <div class="inside-dot">6</div>
+      <div class="inside-text">How to Build Your First Portfolio
+        <span>What to include, how to present your work and stand out to clients and employers</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form -->
+  <div class="form-card" id="formCard">
+    <h2>Get the guide 👇</h2>
+    <p>Enter your details below. I'll send you the payment link on your email within a few hours — then you'll get the PDF instantly after payment.</p>
+    <form id="orderForm">
+      <div class="field">
+        <label>Your Name</label>
+        <input type="text" name="name" placeholder="e.g. Rikesh" required/>
+      </div>
+      <div class="field">
+        <label>Email Address</label>
+        <input type="email" name="email" placeholder="you@gmail.com" required/>
+      </div>
+      <div class="field">
+        <label>Phone (optional)</label>
+        <input type="text" name="phone" placeholder="98XXXXXXXX"/>
+      </div>
+      <input type="hidden" name="product" value="UIUX-Beginner-Guide-Rs249"/>
+      <button type="submit" class="btn" id="submitBtn">Get the Guide — Rs. 249 →</button>
+    </form>
+    <p class="privacy">🔒 Your info is safe. No spam, ever.</p>
+  </div>
+
+  <!-- Success -->
+  <div class="success-card" id="successCard">
+    <div class="success-icon">🎉</div>
+    <h2>You're almost there!</h2>
+    <p>I've received your order request. I'll send the <strong>eSewa payment link</strong> to your email within a few hours.<br/><br/>Once you complete the payment of <strong>Rs. 249</strong>, I'll send you the PDF guide immediately.</p>
+    <div class="social-nudge">
+      Follow <strong>@uiuxdiary</strong> on TikTok & Instagram for daily free UI/UX tips 🙌
+    </div>
+  </div>
+
+</div>
+
+<footer>uiuxdiary · Made with ❤️ in Nepal 🇳🇵</footer>
+
+<script>
+  const form = document.getElementById('orderForm');
+  const formCard = document.getElementById('formCard');
+  const successCard = document.getElementById('successCard');
+  const submitBtn = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    const data = new FormData(form);
+    try {
+      await fetch('https://formspree.io/f/mdawkyzd', {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+    } catch (err) {}
+
+    formCard.style.display = 'none';
+    successCard.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+</body>
+</html>
