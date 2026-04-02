@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UIUXDiary's Vault — Designer Resources</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --orange: #FF5C1A;
+    --orange-light: #FF7A3D;
+    --orange-glow: rgba(255, 92, 26, 0.18);
+    --orange-glow2: rgba(255, 92, 26, 0.08);
+    --dark: #0B0B0B;
+    --dark2: #111111;
+    --dark3: #181818;
+    --surface: #1A1A1A;
+    --surface2: #222222;
+    --border: rgba(255,255,255,0.07);
+    --border-hover: rgba(255, 92, 26, 0.35);
+    --text: #F5F2EE;
+    --text-muted: rgba(245, 242, 238, 0.5);
+    --text-dim: rgba(245, 242, 238, 0.28);
+    --radius: 14px;
+    --radius-lg: 20px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* BACKGROUND GRAIN + GLOW */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(255,92,26,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 30% at 80% 80%, rgba(255,92,26,0.06) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 0 40px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(11,11,11,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .logo-icon {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, var(--orange), #FF3A00);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .logo-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--text);
+  }
+
+  .logo-text span { color: var(--orange); }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 13px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    transition: all 0.2s;
+    font-weight: 500;
+  }
+
+  .nav-links a:hover { color: var(--text); background: var(--surface); }
+
+  .nav-badge {
+    background: var(--orange);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 100px 40px 80px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 14px 6px 10px;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 28px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  .hero-eyebrow-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--orange);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.7); }
+  }
+
+  .hero h1 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: clamp(42px, 7vw, 72px);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+    color: var(--text);
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, var(--orange), #FFB347);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 17px;
+    color: var(--text-muted);
+    max-width: 520px;
+    margin: 0 auto 40px;
+    line-height: 1.65;
+  }
+
+  /* SEARCH */
+  .search-wrap {
+    position: relative;
+    max-width: 500px;
+    margin: 0 auto 16px;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    color: var(--text-dim);
+    pointer-events: none;
+  }
+
+  #searchInput {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px 14px 46px;
+    font-size: 14px;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  #searchInput::placeholder { color: var(--text-dim); }
+
+  #searchInput:focus {
+    border-color: var(--border-hover);
+    box-shadow: 0 0 0 3px var(--orange-glow2);
+  }
+
+  /* STATS BAR */
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    padding: 28px 40px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    z-index: 1;
+    flex-wrap: wrap;
+  }
+
+  .stat { text-align: center; }
+
+  .stat-num {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 28px;
+    color: var(--orange);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  /* MAIN CONTENT */
+  .container {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 60px 40px 100px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* CATEGORY SECTION */
+  .category-section {
+    margin-bottom: 72px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+
+  .section-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+
+  .section-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+
+  .section-count {
+    margin-left: auto;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* CARDS GRID */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+  }
+
+  .resource-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    text-decoration: none;
+    display: block;
+    transition: border-color 0.25s, transform 0.2s, background 0.25s;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .resource-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--orange-glow2) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+
+  .resource-card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-2px);
+    background: var(--surface2);
+  }
+
+  .resource-card:hover::before { opacity: 1; }
+
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  .card-favicon {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    background: var(--dark3);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .card-favicon img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+  }
+
+  .card-arrow {
+    color: var(--text-dim);
+    font-size: 16px;
+    transition: color 0.2s, transform 0.2s;
+    line-height: 1;
+    margin-top: 2px;
+  }
+
+  .resource-card:hover .card-arrow {
+    color: var(--orange);
+    transform: translate(2px, -2px);
+  }
+
+  .card-name {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--text);
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .card-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tag {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 20px;
+    background: var(--dark3);
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .tag-orange {
+    background: rgba(255,92,26,0.12);
+    color: var(--orange-light);
+    border-color: rgba(255,92,26,0.2);
+  }
+
+  /* FILTER TABS */
+  .filter-tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .filter-tab {
+    padding: 8px 18px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .filter-tab:hover { background: var(--surface); color: var(--text); }
+
+  .filter-tab.active {
+    background: var(--orange);
+    border-color: var(--orange);
+    color: white;
+    font-weight: 600;
+  }
+
+  /* YOUTUBE CARDS — wider */
+  .cards-grid-yt {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 14px;
+  }
+
+  .yt-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    text-decoration: none;
+    display: block;
+    transition: border-color 0.25s, transform 0.2s;
+    cursor: pointer;
+  }
+
+  .yt-card:hover {
+    border-color: rgba(255, 0, 0, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .yt-thumb {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: var(--dark3);
+    border-radius: 9px;
+    margin-bottom: 14px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .yt-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .yt-play {
+    position: absolute;
+    width: 44px;
+    height: 44px;
+    background: rgba(255,0,0,0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 16px;
+  }
+
+  .yt-channel {
+    font-size: 12px;
+    color: var(--orange);
+    font-weight: 600;
+    margin-bottom: 6px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .yt-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--text);
+    margin-bottom: 6px;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+  }
+
+  .yt-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--border), transparent);
+    margin: 0 0 72px;
+  }
+
+  /* NO RESULTS */
+  #noResults {
+    text-align: center;
+    padding: 80px 40px;
+    color: var(--text-muted);
+    display: none;
+  }
+
+  #noResults .no-icon { font-size: 48px; margin-bottom: 16px; }
+  #noResults p { font-size: 16px; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px;
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 13px;
+    position: relative;
+    z-index: 1;
+  }
+
+  footer strong { color: var(--orange); }
+
+  /* BACK TO TOP */
+  .back-top {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    width: 44px;
+    height: 44px;
+    background: var(--orange);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    border: none;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.2s;
+    z-index: 200;
+    text-decoration: none;
+  }
+
+  .back-top.visible { opacity: 1; }
+  .back-top:hover { transform: translateY(-3px); }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    nav { padding: 0 20px; }
+    .hero { padding: 60px 20px 50px; }
+    .container { padding: 40px 20px 80px; }
+    .nav-links { display: none; }
+    .stats { gap: 20px; padding: 20px; }
+  }
+
+  /* HIDDEN FOR SEARCH */
+  .resource-card.hidden, .yt-card.hidden, .category-section.hidden { display: none; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="logo-icon">V</div>
+    <span class="logo-text">UIUXDiary<span>'s Vault</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#inspiration">Inspiration</a></li>
+    <li><a href="#fonts">Fonts</a></li>
+    <li><a href="#colors">Colors</a></li>
+    <li><a href="#ux-laws">UX Laws</a></li>
+    <li><a href="#podcasts">Podcasts</a></li>
+    <li><a href="#youtube">YouTube</a></li>
+    <li><span class="nav-badge">Free</span></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">
+    <div class="hero-eyebrow-dot"></div>
+    UIUXDiary · Designer Resources
+  </div>
+  <h1>Every resource a<br><em>UI/UX designer</em><br>actually needs</h1>
+  <p class="hero-sub">Hand-picked tools, sites, inspiration, and learning resources — all completely free. No paywalls, no fluff.</p>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+    </svg>
+    <input type="text" id="searchInput" placeholder="Search resources... (e.g. fonts, colors, figma)" oninput="searchResources()">
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-num">60+</div>
+    <div class="stat-label">Resources</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">6</div>
+    <div class="stat-label">Categories</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">100%</div>
+    <div class="stat-label">Free</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">1M+</div>
+    <div class="stat-label">Designers Helped</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main class="container">
+
+  <!-- FILTER TABS -->
+  <div class="filter-tabs">
+    <button class="filter-tab active" onclick="filterCategory('all', this)">All Resources</button>
+    <button class="filter-tab" onclick="filterCategory('inspiration', this)">Inspiration</button>
+    <button class="filter-tab" onclick="filterCategory('fonts', this)">Fonts</button>
+    <button class="filter-tab" onclick="filterCategory('colors', this)">Colors</button>
+    <button class="filter-tab" onclick="filterCategory('ux-laws', this)">UX Laws</button>
+    <button class="filter-tab" onclick="filterCategory('podcasts', this)">Podcasts</button>
+    <button class="filter-tab" onclick="filterCategory('youtube', this)">YouTube</button>
+  </div>
+
+  <!-- 1. INSPIRATION -->
+  <section class="category-section" id="inspiration" data-category="inspiration">
+    <div class="section-header">
+      <div class="section-icon">✦</div>
+      <div class="section-title">Inspiration Sites</div>
+      <div class="section-count">8 sites</div>
+    </div>
+    <div class="cards-grid">
+
+      <a class="resource-card" href="https://dribbble.com" target="_blank" data-name="dribbble design inspiration" data-category="inspiration">
+        <div class="card-top">
+          <div class="card-favicon"><img src="https://www.google.com/s2/favicons?domain=dribbble.com&sz=64" onerror="this.style.display='none';this.parentNode.textContent='🎯'"></div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">Dribbble</div>
+        <div class="card-desc">The go-to platform for discovering beautiful design work from top designers worldwide.</div>
+        <div class="card-tags"><span class="tag tag-orange">Top Pick</span><span class="tag">UI Design</span><span class="tag">Portfolio</span></div>
+      </a>
+
+      <a class="resource-card" href="https://www.behance.net" target="_blank" data-name="behance adobe creative portfolio" data-category="inspiration">
+        <div class="card-top">
+          <div class="card-favicon"><img src="https://www.google.com/s2/favicons?domain=behance.net&sz=64" onerror="this.style.display='none';this.parentNode.textContent='🎨'"></div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">Behance</div>
+        <div class="card-desc">Adobe's creative network showcasing full case studies, branding, and UX projects.</div>
+        <div class="card-tags"><span class="tag">Case Studies</span><span class="tag">Branding</span></div>
+      </a>
+
+      <a class="resource-card" href="https://land-book.com" target="_blank" data-name="land-book landing page design" data-category="inspiration">
+        <div class="card-top">
+          <div class="card-favicon"><img src="https://www.google.com/s2/favicons?domain=land-book.com&sz=64" onerror="this.style.display='none';this.parentNode.textContent='📖'"></div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">Land-book</div>
+        <div class="card-desc">Curated gallery of the best landing pages to inspire your next web design project.</div>
+        <div class="card-tags"><span class="tag">Landing Pages</span><span class="tag">Web Design</span></div>
+      </a>
+
+      <a class="resource-card" href="https://www.awwwards.com" target="_blank" data-name="awwwards best websites award" data-category="inspiration">
+        <div class="card-top">
+          <div class="card-favicon"><img src="https://www.google.com/s2/favicons?domain=awwwards.com&sz=64" onerror="this.style.display='none';this.parentNode.textContent='🏆'"></div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">Awwwards</div>
+        <div class="card-desc">Award-winning websites judged by top designers. Peak-level web design inspiration.</div>
+        <div class="card-tags"><span class="tag tag-orange">Award Winning</span><span class="tag">Web Design</span></div>
+      </a>
+
+      <a class="resource-card" href="https://www.siteinspire.com" target="_blank" data-name="siteinspire web design showcase" data-category="inspiration">
+        <div class="card-top">
+          <div class="card-favicon"><img src="https://www.google.com/s2/favicons?domain=siteinspire.com&sz=64" onerror="this.style.display='none';this.parentNode.textContent='💡'"></div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">Siteinspire</div>
+        <div class="card-desc">Clean, curated web design showcase with a focus on minimal and elegant aesthetics.</div>
+        <div class="card-tags"><span class="tag">Minimal</span><span class="tag">Curated</span></div>
+      </a>
+
+      <a class="resource-card" href="https://mobbin.com" target="_blank" data-name="mobbin mobile ui ux patterns" data-category="inspiration">
+        <div class="card-top">
+          <div class="card-favicon"><img src="https://www.google.com/s2/favicons?domain=mobbin.com&sz=64" onerror="this.style.display='none';this.parentNode.textContent='📱'"></div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">Mobbin</div>
+        <div class="card-desc">Real app UI screenshots from top mobile apps. Perfect for mobile UX pattern research.</div>
+        <div class="card-tags"><span class="tag tag-orange">Top Pick</span><span class="tag">Mobile UI</span><span class="tag">Patterns</span></div>
+      </a>
+
+      <a class="resource-card" href="https://uigarage.net" target="_blank" data-name="ui garage daily ui inspiration" data-category="inspiration">
+        <div class="card-top">
+          <div class="card-favicon"><img src="https://www.google.com/s2/favicons?domain=uigarage.net&sz=64" onerror="this.style.display='none';this.parentNode.textContent='🏠'"></div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">UI Garage</div>
+        <div class="card-desc">Daily UI design inspiration & patterns organized by component type and industry.</div>
+        <div class="card-tags"><span class="tag">Components</span><span class="tag">Daily UI</span></div>
+      </a>
+
+      <a class="resource-card" href="https://www.designspiration.com" target="_blank" data-name="designspiration visual inspiration mood board" data-category="inspiration">
+        <div class="card-top">
+          <div class="card-favicon"><img src="https://www.google.com/s2/favicons?domain=designspiration.com&sz=64" onerror="this.style.display='none';this.parentNode.textContent='🌈'"></div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">Designspiration</div>
+        <div class="card-desc">Save and discover visual inspiration across design, illustration, photography, and typography.</div>
+        <div class="card-tags"><span class="tag">Visual</span><span class="tag">Mood Board</span></div>
+      </a>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 2. FONTS -->
+  <section class="category-section" id="fonts" data-category="fonts">
+    <div class="section-header">
+      <div class="section-icon">Aa</div>
+      <div class="section-title">Font Resources</div>
+      <div class="section-count">7 sites</div>
+    </div>
+    <div class="cards-grid">
+
+      <a class="resource-card" href="https://fonts.google.com" target="_blank" data-name="google fonts free typeface" data-category="fonts">
+        <div class="card-top">
+          <div class="card-favicon"><img src="https://www.google.com/s2/favicons?domain=fonts.google.com&sz=64" onerror="this.style.display='none';this.parentNode.textContent='G'"></div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">Google Fonts</div>
+        <div class="card-desc">1,500+ free, open-source fonts directly usable in Figma, web projects and apps.</div>
+        <div class="card-tags"><span class="tag tag-orange">Essential</span><span class="tag">Free</span><span class="tag">Web Fonts</span></div>
+      </a>
+
+      <a class="resource-card" href="https://fontsource.org" target="_blank" data-name="fontsource self hosted open source" data-category="fonts">
+        <div class="card-top">
+          <div class="card-favicon"><img src="https://www.google.com/s2/favicons?domain=fontsource.org&sz=64" onerror="this.style.display='none';this.parentNode.textContent='F'"></div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">Fontsource</div>
+        <div class="card-desc">Self-host open-source fonts with npm packages. Great for developers building in React/Next.js.</div>
+        <div class="card-tags"><span class="tag">Self-hosted</span><span class="tag">Open Source</span></div>
+      </a>
+
+      <a class="resource-card" href="https://www.dafont.com" target="_blank" data-name="dafont display decorative free fonts" data-category="fonts">
+        <div class="card-top">
+          <div class="card-favicon"><img src="https://www.google.com/s2/favicons?domain=dafont.com&sz=64" onerror="this.style.display='none';this.parentNode.textContent='D'"></div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">DaFont</div>
+        <div class="card-desc">Massive library of decorative and display fonts. Perfect for logos and poster design work.</div>
+        <div class="card-tags"><span class="tag">Display</span><span class="tag">Decorative</span></div>
+      </a>
+
+      <a class="resource-card" href="https://fontsinuse.com" target="_blank" data-name="fonts in use typography real world examples" data-category="fonts">
+        <div class="card-top">
+          <div class="card-favicon"><img src="https://www.google.com/s2/favicons?domain=fontsinuse.com&sz=64" onerror="this.style.display='none';this.parentNode.textContent='T'"></div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">Fonts In Use</div>
+        <div class="card-desc">See how real brands and designers use specific typefaces in actual projects and campaigns.</div>
+        <div class="card-tags"><span class="tag">Typography</span><span class="tag">Real Examples</span></div>
+      </a>
+
+      <a class="resource-card" href="https://www.fontsquirrel.com" target="_blank" data-name="font squirrel commercial free fonts" data-category="fonts">
+        <div class="card-top">
+          <div class="card-favicon"><img src="https://www.google.com/s2/favicons?domain=fontsquirrel.com&sz=64" onerror="this.style.display='none';this.parentNode.textContent='🐿'"></div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">Font Squirrel</div>
+        <div class="card-desc">Handpicked free fonts that are licensed for commercial use. Perfect for client work.</div>
+        <div class="card-tags"><span class="tag tag-orange">Commercial OK</span><span class="tag">Free</span></div>
+      </a>
+
+      <a class="resource-card" href="https://typescale.com" target="_blank" data-name="type scale modular typography hierarchy" data-category="fonts">
+        <div class="card-top">
+          <div class="card-favicon"><img src="https://www.google.com/s2/favicons?domain=typescale.com&sz=64" onerror="this.style.display='none';this.parentNode.textContent='↕'"></div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">Type Scale</div>
+        <div class="card-desc">Generate a modular type scale for your designs. Set hierarchy ratios visually in seconds.</div>
+        <div class="card-tags"><span class="tag">Tool</span><span class="tag">Hierarchy</span></div>
+      </a>
+
+      <a class="resource-card" href="https://fontjoy.com" target="_blank" data-name="fontjoy font pairing generator AI" data-category="fonts">
+        <div class="card-top">
+          <div class="card-favicon"><img src="https://www.google.com/s2/favicons?domain=fontjoy.com&sz=64" onerror="this.style.display='none';this.parentNode.textContent='🎲'"></div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">Fontjoy</div>
+        <div class="card-desc">AI-powered font pairing generator. Find perfect heading + body font combinations instantly.</div>
+        <div class="card-tags"><span class="tag tag-orange">AI Tool</span><span class="tag">Pairing</span></div>
+      </a>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 3. COLORS -->
+  <section class="category-section" id="colors" data-category="colors">
+    <div class="section-header">
+      <div class="section-icon">🎨</div>
+      <div class="section-title">Color Resources</div>
+      <div class="section-count">8 sites</div>
+    </div>
+    <div class="cards-grid">
+
+      <a class="resource-card" href="https://coolors.co" target="_blank" data-name="coolors palette generator color scheme" data-category="colors">
+        <div class="card-top">
+          <div class="card-favicon"><img src="https://www.google.com/s2/favicons?domain=coolors.co&sz=64" onerror="this.style.display='none';this.parentNode.textContent='🌡'"></div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">Coolors</div>
+        <div class="card-desc">The fastest color palette generator. Press spacebar to generate beautiful palettes instantly.</div>
+        <div class="card-tags"><span class="tag tag-orange">Essential</span><span class="tag">Palette</span><span class="tag">Generator</span></div>
+      </a>
+
+      <a class="resource-card" href="https://color.adobe.com" target="_blank" data-name="adobe color wheel harmony rules" data-category="colors">
+        <div class="card-top">
+          <div class="card-favicon"><img src="https://www.google.com/s2/favicons?domain=color.adobe.com&sz=64" onerror="this.style.display='none';this.parentNode.textContent='A'"></div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">Adobe Color</div>
+        <div class="card-desc">Create, save and explore color themes using harmony rules. Extract palettes from images.</div>
+        <div class="card-tags"><span class="tag">Harmony</span><span class="tag">Extract</span></div>
+      </a>
+
+      <a class="resource-card" href="https://palettemaker.com" target="_blank" data-name="palette maker color palette UI preview" data-category="colors">
+        <div class="card-top">
+          <div class="card-favicon"><img src="https://www.google.com/s2/favicons?domain=palettemaker.com&sz=64" onerror="this.style.display='none';this.parentNode.textContent='🖌'"></div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">Palette Maker</div>
+        <div class="card-desc">Generate palettes AND see how they look on real UI components — super useful for design work.</div>
+        <div class="card-tags"><span class="tag tag-orange">Top Pick</span><span class="tag">Preview</span></div>
+      </a>
+
+      <a class="resource-card" href="https://www.happyhues.co" target="_blank" data-name="happy hues curated color palettes website" data-category="colors">
+        <div class="card-top">
+          <div class="card-favicon"><img src="https://www.google.com/s2/favicons?domain=happyhues.co&sz=64" onerror="this.style.display='none';this.parentNode.textContent='😊'"></div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">Happy Hues</div>
+        <div class="card-desc">Curated color palettes shown on real website layouts so you see colors in actual context.</div>
+        <div class="card-tags"><span class="tag">Curated</span><span class="tag">Context</span></div>
+      </a>
+
+      <a class="resource-card" href="https://uicolors.app" target="_blank" data-name="ui colors tailwind shade generator" data-category="colors">
+        <div class="card-top">
+          <div class="card-favicon"><img src="https://www.google.com/s2/favicons?domain=uicolors.app&sz=64" onerror="this.style.display='none';this.parentNode.textContent='🎯'"></div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">UI Colors</div>
+        <div class="card-desc">Generate Tailwind CSS color shades from any color. Exports directly to your config file.</div>
+        <div class="card-tags"><span class="tag">Tailwind</span><span class="tag">Shades</span></div>
+      </a>
+
+      <a class="resource-card" href="https://www.colorhunt.co" target="_blank" data-name="color hunt trending popular palettes" data-category="colors">
+        <div class="card-top">
+          <div class="card-favicon"><img src="https://www.google.com/s2/favicons?domain=colorhunt.co&sz=64" onerror="this.style.display='none';this.parentNode.textContent='🦁'"></div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">Color Hunt</div>
+        <div class="card-desc">Community-curated color palettes updated daily. Browse trending, popular, and seasonal combos.</div>
+        <div class="card-tags"><span class="tag">Trending</span><span class="tag">Community</span></div>
+      </a>
+
+      <a class="resource-card" href="https://colorable.jxnblk.com" target="_blank" data-name="colorable contrast checker accessibility WCAG" data-category="colors">
+        <div class="card-top">
+          <div class="card-favicon"><img src="https://www.google.com/s2/favicons?domain=jxnblk.com&sz=64" onerror="this.style.display='none';this.parentNode.textContent='♿'"></div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">Colorable</div>
+        <div class="card-desc">Check color contrast ratios for WCAG accessibility compliance. Essential for every designer.</div>
+        <div class="card-tags"><span class="tag tag-orange">Accessibility</span><span class="tag">WCAG</span></div>
+      </a>
+
+      <a class="resource-card" href="https://brandcolors.net" target="_blank" data-name="brand colors hex codes famous brands" data-category="colors">
+        <div class="card-top">
+          <div class="card-favicon"><img src="https://www.google.com/s2/favicons?domain=brandcolors.net&sz=64" onerror="this.style.display='none';this.parentNode.textContent='🏷'"></div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">Brand Colors</div>
+        <div class="card-desc">Official hex codes for 600+ famous brand colors — Apple, Netflix, Meta, Nike and more.</div>
+        <div class="card-tags"><span class="tag">Brands</span><span class="tag">Hex Codes</span></div>
+      </a>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 4. UX LAWS -->
+  <section class="category-section" id="ux-laws" data-category="ux-laws">
+    <div class="section-header">
+      <div class="section-icon">⚖</div>
+      <div class="section-title">UX Laws & Research</div>
+      <div class="section-count">7 sites</div>
+    </div>
+    <div class="cards-grid">
+
+      <a class="resource-card" href="https://lawsofux.com" target="_blank" data-name="laws of ux psychology principles heuristics" data-category="ux-laws">
+        <div class="card-top">
+          <div class="card-favicon"><img src="https://www.google.com/s2/favicons?domain=lawsofux.com&sz=64" onerror="this.style.display='none';this.parentNode.textContent='⚖'"></div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">Laws of UX</div>
+        <div class="card-desc">21 UX laws explained beautifully — Fitts's Law, Hick's Law, Jakob's Law and more with real examples.</div>
+        <div class="card-tags"><span class="tag tag-orange">Must Know</span><span class="tag">Psychology</span><span class="tag">Heuristics</span></div>
+      </a>
+
+      <a class="resource-card" href="https://www.nngroup.com/articles" target="_blank" data-name="nielsen norman group UX research articles" data-category="ux-laws">
+        <div class="card-top">
+          <div class="card-favicon"><img src="https://www.google.com/s2/favicons?domain=nngroup.com&sz=64" onerror="this.style.display='none';this.parentNode.textContent='🔬'"></div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">Nielsen Norman Group</div>
+        <div class="card-desc">The gold standard of UX research. Evidence-based articles, reports, and usability findings.</div>
+        <div class="card-tags"><span class="tag tag-orange">Gold Standard</span><span class="tag">Research</span></div>
+      </a>
+
+      <a class="resource-card" href="https://www.interaction-design.org/literature" target="_blank" data-name="interaction design foundation IDF free articles" data-category="ux-laws">
+        <div class="card-top">
+          <div class="card-favicon"><img src="https://www.google.com/s2/favicons?domain=interaction-design.org&sz=64" onerror="this.style.display='none';this.parentNode.textContent='📚'"></div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">IDF Literature</div>
+        <div class="card-desc">Free, peer-reviewed design literature. 100+ topics from design thinking to user research methods.</div>
+        <div class="card-tags"><span class="tag">Free</span><span class="tag">Peer Reviewed</span></div>
+      </a>
+
+      <a class="resource-card" href="https://www.usability.gov" target="_blank" data-name="usability gov user research guidelines" data-category="ux-laws">
+        <div class="card-top">
+          <div class="card-favicon"><img src="https://www.google.com/s2/favicons?domain=usability.gov&sz=64" onerror="this.style.display='none';this.parentNode.textContent='🇺🇸'"></div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">Usability.gov</div>
+        <div class="card-desc">US government UX guidelines covering user research, testing, and accessibility best practices.</div>
+        <div class="card-tags"><span class="tag">Guidelines</span><span class="tag">Government</span></div>
+      </a>
+
+      <a class="resource-card" href="https://www.uxbooth.com" target="_blank" data-name="ux booth articles design community" data-category="ux-laws">
+        <div class="card-top">
+          <div class="card-favicon"><img src="https://www.google.com/s2/favicons?domain=uxbooth.com&sz=64" onerror="this.style.display='none';this.parentNode.textContent='📰'"></div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">UX Booth</div>
+        <div class="card-desc">Community-published articles covering UX methodologies, research, strategy, and design process.</div>
+        <div class="card-tags"><span class="tag">Articles</span><span class="tag">Community</span></div>
+      </a>
+
+      <a class="resource-card" href="https://baymard.com/blog" target="_blank" data-name="baymard institute ecommerce UX research" data-category="ux-laws">
+        <div class="card-top">
+          <div class="card-favicon"><img src="https://www.google.com/s2/favicons?domain=baymard.com&sz=64" onerror="this.style.display='none';this.parentNode.textContent='🛒'"></div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">Baymard Institute</div>
+        <div class="card-desc">Deep e-commerce UX research. Must-read for designers working on checkout and product pages.</div>
+        <div class="card-tags"><span class="tag">E-commerce</span><span class="tag">Research</span></div>
+      </a>
+
+      <a class="resource-card" href="https://www.smashingmagazine.com/category/ux-design" target="_blank" data-name="smashing magazine ux design articles" data-category="ux-laws">
+        <div class="card-top">
+          <div class="card-favicon"><img src="https://www.google.com/s2/favicons?domain=smashingmagazine.com&sz=64" onerror="this.style.display='none';this.parentNode.textContent='💥'"></div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">Smashing Magazine</div>
+        <div class="card-desc">In-depth UX design articles covering practical tips, patterns, case studies, and career advice.</div>
+        <div class="card-tags"><span class="tag">In-depth</span><span class="tag">Practical</span></div>
+      </a>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 5. PODCASTS -->
+  <section class="category-section" id="podcasts" data-category="podcasts">
+    <div class="section-header">
+      <div class="section-icon">🎙</div>
+      <div class="section-title">UX Podcasts</div>
+      <div class="section-count">6 podcasts</div>
+    </div>
+    <div class="cards-grid">
+
+      <a class="resource-card" href="https://podcasts.apple.com/us/podcast/design-details/id947191070" target="_blank" data-name="design details podcast ui ux show" data-category="podcasts">
+        <div class="card-top">
+          <div class="card-favicon">🎙</div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">Design Details</div>
+        <div class="card-desc">Weekly conversations with product designers from top tech companies like Figma, Stripe, and Linear.</div>
+        <div class="card-tags"><span class="tag tag-orange">Top Pick</span><span class="tag">Product Design</span></div>
+      </a>
+
+      <a class="resource-card" href="https://www.relay.fm/cortex" target="_blank" data-name="cortex podcast creative work productivity" data-category="podcasts">
+        <div class="card-top">
+          <div class="card-favicon">🧠</div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">Cortex</div>
+        <div class="card-desc">CGP Grey and Myke Hurley discuss creative work, productivity systems, and building a creative career.</div>
+        <div class="card-tags"><span class="tag">Productivity</span><span class="tag">Creative Work</span></div>
+      </a>
+
+      <a class="resource-card" href="https://www.uie.com/brainsparks" target="_blank" data-name="brain sparks UIE UX podcast Jared Spool" data-category="podcasts">
+        <div class="card-top">
+          <div class="card-favicon">⚡</div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">Brain Sparks</div>
+        <div class="card-desc">Jared Spool interviews UX leaders on research, design strategy, and enterprise UX challenges.</div>
+        <div class="card-tags"><span class="tag">UX Research</span><span class="tag">Strategy</span></div>
+      </a>
+
+      <a class="resource-card" href="https://podcasts.apple.com/us/podcast/ux-podcast/id438896324" target="_blank" data-name="UX podcast Per Axbom james royal lawson" data-category="podcasts">
+        <div class="card-top">
+          <div class="card-favicon">🎧</div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">UX Podcast</div>
+        <div class="card-desc">Biweekly episodes exploring how UX fits into the bigger picture of business, ethics, and society.</div>
+        <div class="card-tags"><span class="tag">Ethics</span><span class="tag">Big Picture</span></div>
+      </a>
+
+      <a class="resource-card" href="https://www.google.com/search?q=How+to+Sell+Drugs+Online+%28Fast%29+season+4" target="_blank" data-name="UI breakfast podcast product design freemium" data-category="podcasts">
+        <div class="card-top">
+          <div class="card-favicon">☕</div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">UI Breakfast</div>
+        <div class="card-desc">Jane Portman's podcast on UI/UX design for SaaS, freelancing, and productized design services.</div>
+        <div class="card-tags"><span class="tag">SaaS</span><span class="tag">Freelance</span></div>
+      </a>
+
+      <a class="resource-card" href="https://podcasts.apple.com/us/podcast/the-honest-designers-show/id1296177704" target="_blank" data-name="honest designers show real talk freelance" data-category="podcasts">
+        <div class="card-top">
+          <div class="card-favicon">💬</div>
+          <span class="card-arrow">↗</span>
+        </div>
+        <div class="card-name">Honest Designers Show</div>
+        <div class="card-desc">Raw, honest conversations about the reality of being a designer — struggles, wins, and real talk.</div>
+        <div class="card-tags"><span class="tag">Real Talk</span><span class="tag">Career</span></div>
+      </a>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 6. YOUTUBE -->
+  <section class="category-section" id="youtube" data-category="youtube">
+    <div class="section-header">
+      <div class="section-icon" style="color: #ff0000;">▶</div>
+      <div class="section-title">Learn Free on YouTube</div>
+      <div class="section-count">10 channels</div>
+    </div>
+    <div class="cards-grid-yt">
+
+      <a class="yt-card" href="https://www.youtube.com/@designcourse" target="_blank" data-name="designcourse youtube figma web ui tutorial" data-category="youtube">
+        <div class="yt-thumb">
+          <img src="https://i.ytimg.com/vi/c9Wg6Cb_YlU/hqdefault.jpg" onerror="this.style.display='none'">
+          <div class="yt-play">▶</div>
+        </div>
+        <div class="yt-channel">DesignCourse</div>
+        <div class="yt-title">UI/UX Design & Figma Tutorials</div>
+        <div class="yt-desc">Gary Simon teaches UI design, CSS, and Figma. Perfect for visual learners wanting practical skills.</div>
+      </a>
+
+      <a class="yt-card" href="https://www.youtube.com/@AJAndrew" target="_blank" data-name="AJ Andrew youtube figma beginner UI" data-category="youtube">
+        <div class="yt-thumb">
+          <img src="https://i.ytimg.com/vi/1PBamSjFJdE/hqdefault.jpg" onerror="this.style.display='none'">
+          <div class="yt-play">▶</div>
+        </div>
+        <div class="yt-channel">AJ & Andrew</div>
+        <div class="yt-title">Figma UI Design Tutorials</div>
+        <div class="yt-desc">Step-by-step Figma tutorials for beginners covering real app UI design from scratch.</div>
+      </a>
+
+      <a class="yt-card" href="https://www.youtube.com/@FluxAcademy" target="_blank" data-name="flux academy youtube web design freelance" data-category="youtube">
+        <div class="yt-thumb">
+          <img src="https://i.ytimg.com/vi/nvFRRMZl9kQ/hqdefault.jpg" onerror="this.style.display='none'">
+          <div class="yt-play">▶</div>
+        </div>
+        <div class="yt-channel">Flux Academy</div>
+        <div class="yt-title">Web Design & Freelance Business</div>
+        <div class="yt-desc">Ran Segall covers web design, freelancing, and building a successful design business.</div>
+      </a>
+
+      <a class="yt-card" href="https://www.youtube.com/@juxtopposed" target="_blank" data-name="juxtopposed ui ux figma beginner youtube" data-category="youtube">
+        <div class="yt-thumb">
+          <img src="https://i.ytimg.com/vi/wIuVvCuiJhU/hqdefault.jpg" onerror="this.style.display='none'">
+          <div class="yt-play">▶</div>
+        </div>
+        <div class="yt-channel">Juxtopposed</div>
+        <div class="yt-title">Figma Design Tips & UI</div>
+        <div class="yt-desc">Clean, satisfying Figma tutorials with a focus on modern UI design techniques and trends.</div>
+      </a>
+
+      <a class="yt-card" href="https://www.youtube.com/@MalewiczHype" target="_blank" data-name="Michal Malewicz design youtube channel" data-category="youtube">
+        <div class="yt-thumb">
+          <img src="https://i.ytimg.com/vi/YiLUYf4HDh4/hqdefault.jpg" onerror="this.style.display='none'">
+          <div class="yt-play">▶</div>
+        </div>
+        <div class="yt-channel">Michal Malewicz</div>
+        <div class="yt-title">Design Theory & Figma</div>
+        <div class="yt-desc">Deep dives into design fundamentals, visual design theory, and career advice for UI/UX designers.</div>
+      </a>
+
+      <a class="yt-card" href="https://www.youtube.com/@figma" target="_blank" data-name="figma official youtube tutorials" data-category="youtube">
+        <div class="yt-thumb">
+          <img src="https://i.ytimg.com/vi/YmdtXc_bzDw/hqdefault.jpg" onerror="this.style.display='none'">
+          <div class="yt-play">▶</div>
+        </div>
+        <div class="yt-channel">Figma (Official)</div>
+        <div class="yt-title">Official Figma Tutorials</div>
+        <div class="yt-desc">Official channel covering new Figma features, tutorials, and Config conference talks.</div>
+      </a>
+
+      <a class="yt-card" href="https://www.youtube.com/@NNgroup" target="_blank" data-name="nielsen norman group youtube UX research" data-category="youtube">
+        <div class="yt-thumb">
+          <img src="https://i.ytimg.com/vi/5RL5bh9ePp8/hqdefault.jpg" onerror="this.style.display='none'">
+          <div class="yt-play">▶</div>
+        </div>
+        <div class="yt-channel">Nielsen Norman Group</div>
+        <div class="yt-title">UX Research & Usability</div>
+        <div class="yt-desc">Evidence-based UX research videos — usability testing, user research methods, and heuristics.</div>
+      </a>
+
+      <a class="yt-card" href="https://www.youtube.com/@DevEd" target="_blank" data-name="dev ed youtube web design development beginner" data-category="youtube">
+        <div class="yt-thumb">
+          <img src="https://i.ytimg.com/vi/r-GSGH2RxJs/hqdefault.jpg" onerror="this.style.display='none'">
+          <div class="yt-play">▶</div>
+        </div>
+        <div class="yt-channel">Dev Ed</div>
+        <div class="yt-title">Web Design for Beginners</div>
+        <div class="yt-desc">Fun, beginner-friendly web design and development tutorials. Great for designers wanting to code.</div>
+      </a>
+
+      <a class="yt-card" href="https://www.youtube.com/@CharliMarieTV" target="_blank" data-name="charli marie youtube design freelance career" data-category="youtube">
+        <div class="yt-thumb">
+          <img src="https://i.ytimg.com/vi/LKF4LNSNhR8/hqdefault.jpg" onerror="this.style.display='none'">
+          <div class="yt-play">▶</div>
+        </div>
+        <div class="yt-channel">CharliMarieTV</div>
+        <div class="yt-title">Design Career & Process</div>
+        <div class="yt-desc">Charli Marie shares her design process, career advice, and behind-the-scenes of real client work.</div>
+      </a>
+
+      <a class="yt-card" href="https://www.youtube.com/@uxreviewer" target="_blank" data-name="ux reviewer youtube ux critique teardown" data-category="youtube">
+        <div class="yt-thumb">
+          <img src="https://i.ytimg.com/vi/rfGmendgqpk/hqdefault.jpg" onerror="this.style.display='none'">
+          <div class="yt-play">▶</div>
+        </div>
+        <div class="yt-channel">UX Reviewer</div>
+        <div class="yt-title">UX Teardowns & Critiques</div>
+        <div class="yt-desc">Brutally honest UX critiques of real apps. Learn what works and what doesn't in real product design.</div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- NO RESULTS -->
+  <div id="noResults">
+    <div class="no-icon">🔍</div>
+    <p>No resources found for "<span id="searchTerm"></span>"</p>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <p>Made with ❤️ by <strong>UIUXDiary</strong> · Curated by Rikesh · All resources are free</p>
+  <p style="margin-top: 8px; font-size: 12px;">Follow <strong>@uiuxdiary</strong> on Instagram & TikTok for daily UI/UX tips</p>
+</footer>
+
+<!-- BACK TO TOP -->
+<a href="#" class="back-top" id="backTop" title="Back to top">↑</a>
+
+<script>
+  function searchResources() {
+    const q = document.getElementById('searchInput').value.toLowerCase().trim();
+    const cards = document.querySelectorAll('.resource-card, .yt-card');
+    let count = 0;
+
+    cards.forEach(card => {
+      const text = (card.dataset.name || '') + ' ' + card.textContent.toLowerCase();
+      const match = q === '' || text.includes(q);
+      card.classList.toggle('hidden', !match);
+      if (match) count++;
+    });
+
+    // Show/hide sections
+    document.querySelectorAll('.category-section').forEach(sec => {
+      const visible = [...sec.querySelectorAll('.resource-card, .yt-card')].some(c => !c.classList.contains('hidden'));
+      sec.classList.toggle('hidden', !visible);
+    });
+
+    document.getElementById('noResults').style.display = count === 0 ? 'block' : 'none';
+    document.getElementById('searchTerm').textContent = q;
+  }
+
+  function filterCategory(cat, btn) {
+    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('searchInput').value = '';
+
+    document.querySelectorAll('.category-section').forEach(sec => {
+      const show = cat === 'all' || sec.dataset.category === cat;
+      sec.classList.toggle('hidden', !show);
+    });
+
+    document.querySelectorAll('.resource-card, .yt-card').forEach(c => c.classList.remove('hidden'));
+    document.getElementById('noResults').style.display = 'none';
+
+    if (cat !== 'all') {
+      const target = document.getElementById(cat);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  // Back to top
+  const backTop = document.getElementById('backTop');
+  window.addEventListener('scroll', () => {
+    backTop.classList.toggle('visible', window.scrollY > 400);
+  });
+
+  // Staggered card animation on load
+  const cards = document.querySelectorAll('.resource-card, .yt-card');
+  cards.forEach((card, i) => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(16px)';
+    card.style.transition = 'opacity 0.4s ease, transform 0.4s ease, border-color 0.25s, background 0.25s';
+    setTimeout(() => {
+      card.style.opacity = '1';
+      card.style.transform = 'translateY(0)';
+    }, 80 + i * 18);
+  });
+</script>
+</body>
+</html>
